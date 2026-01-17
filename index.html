@@ -67,7 +67,9 @@
         .hero-content { margin-top: 50px; max-width: 900px; }
         
         h1 {
-            font-family: 'Orbitron', sans-serif; font-size: 5.5rem; line-height: 1;
+            font-family: 'Orbitron', sans-serif; 
+            font-size: 4rem; /* AJUSTADO: Antes 5.5rem, ahora más pequeño */
+            line-height: 1;
             margin-bottom: 30px; text-transform: uppercase;
             text-shadow: 0 0 25px rgba(59, 130, 246, 0.6);
         }
@@ -160,11 +162,17 @@
             background: rgba(2, 6, 12, 0.92); border-top: 1px solid rgba(59, 130, 246, 0.2);
         }
         .section-header { margin-bottom: 80px; text-align: center; }
-        .section-title { font-family: 'Orbitron'; font-size: 3.5rem; color: var(--accent-blue); letter-spacing: 4px; text-shadow: 0 0 15px var(--accent-blue); }
+        
+        .section-title { 
+            font-family: 'Orbitron'; 
+            font-size: 2.8rem; /* AJUSTADO: Antes 3.5rem, ahora más discreto */
+            color: var(--accent-blue); 
+            letter-spacing: 4px; 
+            text-shadow: 0 0 15px var(--accent-blue); 
+        }
         
         .missions-grid {
             display: grid;
-            /* AQUÍ ESTÁ EL CAMBIO: Forzamos 3 columnas en pantallas grandes */
             grid-template-columns: repeat(3, 1fr); 
             gap: 40px;
         }
@@ -175,7 +183,7 @@
             transition: 0.4s; position: relative;
             display: flex; flex-direction: column;
             overflow: hidden;
-            height: 100%; /* Para que todas tengan misma altura */
+            height: 100%;
         }
         .mission-card:hover {
             border-color: var(--accent-blue); 
@@ -186,7 +194,7 @@
         /* Imagen de Portada en Misiones */
         .mission-img {
             width: 100%; height: 220px; object-fit: cover;
-            background-color: #1e293b; /* Color gris de espera */
+            background-color: #1e293b;
             border-bottom: 1px solid rgba(255,255,255,0.1);
             transition: 0.4s;
         }
@@ -201,7 +209,7 @@
         .mission-btn { 
             color: white; text-decoration: none; border-bottom: 2px solid var(--accent-blue); 
             padding-bottom: 5px; font-weight: 800; font-size: 0.9rem; align-self: flex-start;
-            transition: 0.3s; margin-top: auto; /* Empuja el botón al fondo */
+            transition: 0.3s; margin-top: auto;
         }
         .mission-btn:hover { color: var(--accent-blue); padding-right: 10px; }
 
@@ -211,12 +219,14 @@
 
         /* RESPONSIVE: Adaptación a celular y tablet */
         @media (max-width: 1100px) {
-            .missions-grid { grid-template-columns: repeat(2, 1fr); } /* Tablet: 2 columnas */
+            .missions-grid { grid-template-columns: repeat(2, 1fr); }
         }
         @media (max-width: 768px) {
-            .missions-grid { grid-template-columns: 1fr; } /* Móvil: 1 columna */
-            h1 { font-size: 3.5rem; }
-            .big-name { font-size: 3rem; }
+            .missions-grid { grid-template-columns: 1fr; }
+            h1 { font-size: 3rem; } /* Más pequeño aún en celular */
+            .big-name { font-size: 2.5rem; }
+            .section-title { font-size: 2.2rem; }
+            
             .slogan-text { font-size: 1.5rem; }
             .hero-content, .profile-section, .missions-section { padding: 40px 20px; }
             .nav-links { display: none; }
@@ -248,31 +258,31 @@
         /* 3. Quitamos el margen inferior gigante que tenía el nombre antes */
         .big-name { 
             font-family: 'Orbitron', sans-serif; 
-            font-size: 3rem; 
+            font-size: 3rem; /* AJUSTADO */
             color: white; 
             line-height: 1; 
-            margin-bottom: 0; /* Importante: margen a 0 */
+            margin-bottom: 0; 
         }
 
         /* 4. Estilo para el nuevo correo en el encabezado */
         .header-email {
-            font-family: 'Rajdhani', sans-serif; /* Fuente legible */
-            font-size: 1.3rem; /* Tamaño grande y claro */
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.3rem;
             color: var(--text-gray);
             text-decoration: none;
             display: inline-flex;
             align-items: center;
-            gap: 10px; /* Espacio entre icono y texto */
+            gap: 10px;
             transition: 0.3s;
             font-weight: 500;
         }
 
         .header-email i {
-            color: var(--accent-blue); /* Icono azul */
+            color: var(--accent-blue);
         }
 
         .header-email:hover {
-            color: white; /* Se vuelve blanco al pasar el mouse */
+            color: white;
             text-shadow: 0 0 10px var(--accent-blue);
         }
 
@@ -300,7 +310,7 @@
             <div class="nav-links">
                 <a href="#about">Perfil</a>
                 <a href="#projects">Misiones</a>
-                <a href="mailto:tuemail@ejemplo.com">Contacto</a>
+                <a href="mailto:cezarrtdr@gmail.com">Contacto</a>
             </div>
             <div class="nav-user">SYSTEM: ONLINE</div>
         </nav>
@@ -378,11 +388,10 @@
 
         <div class="missions-grid">
             
-
             <article class="mission-card reveal">
                 <img src="Portadas/Teledeteccion_rupa.jpg" class="mission-img" alt="Selva">
                 <div class="mission-content">
-                    <span class="mission-tag">// ELEDETECCIÓN Y ANÁLISIS DE TERRITOIO</span>
+                    <span class="mission-tag">// TELEDETECCIÓN Y ANÁLISIS DE TERRITORIO</span>
                     <h3 class="mission-title">Teledeteccion: Distrito Rupa-Rupa</h3>
                     <p class="mission-desc">Generación de mapas temáticos para el análisis de cobertura y uso de suelo en la selva alta.</p>
                     <a href="proyecto_rupa_rupa.html" class="mission-btn">VER MAPAS ></a>
