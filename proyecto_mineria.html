@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitoreo Térmico Las Bambas - GeoData</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* ESTILO: GITHUB DARK MODE */
+        :root {
+            --bg-github: #0d1117;
+            --text-primary: #c9d1d9;
+            --text-secondary: #8b949e;
+            --accent-blue: #58a6ff;
+            --border-color: #30363d;
+            --formula-bg: #161b22;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-github);
+            color: var(--text-primary);
+            font-family: 'Merriweather', serif; 
+            line-height: 1.9;
+            font-size: 18px;
+            padding: 40px 20px;
+        }
+
+        /* Enlace de volver */
+        .back-link {
+            text-decoration: none; color: var(--text-secondary);
+            font-family: 'Inter', sans-serif; font-size: 0.9rem;
+            display: inline-flex; align-items: center; gap: 8px;
+            margin-bottom: 40px; transition: 0.2s;
+        }
+        .back-link:hover { color: var(--accent-blue); }
+
+        /* Contenedor Central */
+        .paper-container { max-width: 960px; margin: 0 auto 100px auto; }
+
+        /* Tipografía */
+        h1, h2, h3 {
+            font-family: 'Inter', sans-serif; color: #ffffff;
+            font-weight: 700; line-height: 1.3;
+        }
+
+        header { border-bottom: 1px solid var(--border-color); padding-bottom: 30px; margin-bottom: 40px; }
+        h1 { font-size: 2.5rem; margin-bottom: 20px; letter-spacing: -0.5px; }
+
+        .meta-data {
+            font-family: 'Inter', sans-serif; color: var(--text-secondary);
+            font-size: 0.95rem; display: flex; flex-wrap: wrap; gap: 25px;
+        }
+        .meta-data span { display: flex; align-items: center; gap: 8px; }
+        .meta-data i { color: var(--accent-blue); }
+
+        h2 { font-size: 1.8rem; margin-top: 50px; margin-bottom: 20px; }
+        p { margin-bottom: 25px; text-align: justify; }
+        strong { color: white; font-weight: 700; }
+        
+        ul { margin-bottom: 30px; padding-left: 25px; }
+        li { margin-bottom: 12px; }
+
+        /* Estilo para Fórmulas Matemáticas */
+        .math-block {
+            background-color: var(--formula-bg);
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            text-align: center;
+            font-family: 'Inter', sans-serif;
+            font-size: 1.4rem;
+            color: white;
+            border-radius: 6px;
+            margin: 30px 0;
+            font-weight: 600;
+        }
+
+        /* Imágenes */
+        figure { margin: 50px 0; }
+        img { width: 100%; height: auto; display: block; border-radius: 4px; border: 1px solid var(--border-color); }
+        figcaption {
+            text-align: center; font-family: 'Inter', sans-serif; font-size: 0.9rem;
+            color: var(--text-secondary); margin-top: 15px; font-style: italic;
+        }
+
+        /* Sección de Descargas */
+        .resources-section { margin-top: 80px; padding-top: 40px; border-top: 1px solid var(--border-color); }
+        .btn-download {
+            display: inline-flex; align-items: center; gap: 10px;
+            background-color: #21262d; color: var(--accent-blue);
+            padding: 10px 20px; text-decoration: none;
+            font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.95rem;
+            border-radius: 6px; border: 1px solid var(--border-color);
+            transition: 0.2s; margin-right: 15px; margin-bottom: 10px;
+        }
+        .btn-download:hover { background-color: #30363d; border-color: #8b949e; }
+    </style>
+</head>
+<body>
+
+    <main class="paper-container">
+        
+        <a href="index.html" class="back-link">
+            <i class="fas fa-arrow-left"></i> Volver al Portafolio
+        </a>
+
+        <header>
+            <h1>Monitoreo Térmico Satelital: Variación LST en Las Bambas (2015-2024)</h1>
+            
+            <div class="meta-data">
+                <span><i class="fas fa-user-circle"></i> César Torres</span>
+                <span><i class="far fa-calendar-alt"></i> Enero 2026</span>
+                <span><i class="fas fa-temperature-high"></i> Landsat 8-9 TIRS</span>
+            </div>
+        </header>
+
+        <h2>1. Introducción</h2>
+        <p>
+            La actividad minera a gran escala altera drásticamente la cobertura terrestre, removiendo vegetación y exponiendo suelo rocoso. Este cambio físico tiene un impacto termodinámico directo: la alteración del balance de energía superficial.
+        </p>
+        <p>
+            En este estudio, realicé un análisis de <strong>Teledetección Térmica</strong> en la Unidad Minera Las Bambas (Challhuahuacho, Apurímac), comparando dos escenarios temporales clave: el año 2015 (inicio de operaciones comerciales) y el año 2024. El objetivo principal fue cuantificar la variación de la <strong>Temperatura Superficial Terrestre (LST)</strong> utilizando imágenes satelitales Landsat.
+        </p>
+
+        <h2>2. Metodología: La Banda Térmica (TIRS)</h2>
+        <p>
+            Para este análisis, el insumo principal fue la <strong>Banda 10 (Infrarrojo Térmico - TIRS 1)</strong> de la misión Landsat (8 y 9), con una resolución re-muestreada de 30 metros. El flujo de procesamiento para obtener la LST siguió los siguientes pasos rigurosos:
+        </p>
+        <ul>
+            <li><strong>Conversión Radiométrica:</strong> Transformación de Niveles Digitales (DN) a Radiancia Espectral.</li>
+            <li><strong>Temperatura de Brillo (Brightness Temperature):</strong> Conversión de radiancia a temperatura en Kelvin (sin corrección atmosférica aún).</li>
+            <li><strong>Cálculo de Emisividad:</strong> Estimación basada en el índice de vegetación (NDVI), para diferenciar cómo emiten calor el suelo desnudo frente a la vegetación.</li>
+            <li><strong>Cálculo de LST:</strong> Aplicación de la ecuación de Planck inversa corregida por la emisividad calculada.</li>
+        </ul>
+        
+        <p>
+            Finalmente, para obtener el mapa de variaciones y detectar anomalías, apliqué Álgebra de Mapas mediante la siguiente fórmula diferencial:
+        </p>
+
+        <div class="math-block">
+            ΔLST = LST<sub>2024</sub> - LST<sub>2015</sub>
+        </div>
+
+        <h2>3. Resultados: Interpretación del Mapa Temático</h2>
+        <p>
+            El procesamiento digital revela patrones térmicos críticos dentro del área de influencia directa de la operación minera.
+        </p>
+
+        <figure>
+            <img src="Las_Bambas/Mapa_LST_LasBambas.jpg" alt="Mapa de Variación Térmica Las Bambas">
+            <figcaption>Figura 1: Mapa de variación de temperatura superficial (ΔLST) entre 2015 y 2024.</figcaption>
+        </figure>
+
+        <h3>Análisis de Anomalías</h3>
+        <ul>
+            <li><strong>Anomalías Térmicas Positivas (Rojo Intenso):</strong> Se observan incrementos de temperatura <strong>superiores a 10°C (Severo)</strong> y entre 5-10°C (Alto). Estas áreas coinciden espacialmente con la expansión del tajo abierto y las zonas de desmonte, donde la pérdida de cobertura vegetal y la exposición de roca oscura aumentan drásticamente la absorción de calor solar.</li>
+            <li><strong>Zonas de Enfriamiento (Azul):</strong> Áreas donde la temperatura ha disminuido (variación negativa). Esto está asociado principalmente a nuevos cuerpos de agua (presas de relaves o pozas de sedimentación) o sombras orográficas dependiendo de la hora de la toma satelital.</li>
+        </ul>
+
+        <h3>Análisis Estadístico</h3>
+        <p>
+            Según el histograma y los gráficos de barras generados en el estudio, una superficie significativa (representada en las barras amarillas y naranjas) muestra un calentamiento moderado a alto. La distribución de frecuencia térmica muestra un claro <strong>desplazamiento de la curva hacia la derecha</strong>, indicando un calentamiento generalizado de la superficie operativa en la última década.
+        </p>
+
+        <figure>
+            <img src="Las_Bambas/3_Grafico_Histograma.png" alt="Histograma de frecuencias térmicas">
+            <figcaption>Figura 2: Distribución de frecuencias térmicas comparativas (2015 vs 2024).</figcaption>
+        </figure>
+
+        <h2>4. Conclusión</h2>
+        <p>
+            El monitoreo satelital mediante la banda 10 de Landsat demuestra que la huella ambiental de Las Bambas no es solo física, sino también térmica. Se ha cuantificado un aumento de temperatura superficial <strong>superior a los 10°C</strong> en las zonas de extracción activa.
+        </p>
+        <p>
+            Este tipo de análisis es vital para la gestión ambiental moderna, ya que los cambios en la LST afectan directamente la humedad del suelo, aceleran la evapotranspiración y pueden generar microclimas locales que impactan la biodiversidad circundante y la recuperación de ecosistemas post-cierre.
+        </p>
+
+        <div class="resources-section">
+            <h3>Recursos del Estudio</h3>
+            <p>Descarga el mapa de calor en alta resolución y el reporte estadístico completo.</p>
+            
+            <a href="Las_Bambas/Mapa_LST_LasBambas.pdf" class="btn-download"><i class="fas fa-file-pdf"></i> Descargar Mapa PDF</a>
+        </div>
+
+    </main>
+
+</body>
+</html>    

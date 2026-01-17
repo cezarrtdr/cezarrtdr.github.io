@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plantilla de Informe Técnico</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* ESTILO: GITHUB DARK MODE */
+        :root {
+            --bg-github: #0d1117;
+            --text-primary: #c9d1d9;
+            --text-secondary: #8b949e;
+            --accent-blue: #58a6ff;
+            --border-color: #30363d;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-github);
+            color: var(--text-primary);
+            font-family: 'Merriweather', serif; 
+            line-height: 1.9;
+            font-size: 18px;
+            padding: 40px 20px;
+        }
+
+        /* Enlace de volver */
+        .back-link {
+            text-decoration: none; color: var(--text-secondary);
+            font-family: 'Inter', sans-serif; font-size: 0.9rem;
+            display: inline-flex; align-items: center; gap: 8px;
+            margin-bottom: 40px; transition: 0.2s;
+        }
+        .back-link:hover { color: var(--accent-blue); }
+
+        /* Contenedor Central */
+        .paper-container { max-width: 960px; margin: 0 auto 100px auto; }
+
+        /* Tipografía */
+        h1, h2, h3 {
+            font-family: 'Inter', sans-serif; color: #ffffff;
+            font-weight: 700; line-height: 1.3;
+        }
+
+        header { border-bottom: 1px solid var(--border-color); padding-bottom: 30px; margin-bottom: 40px; }
+        h1 { font-size: 2.8rem; margin-bottom: 20px; letter-spacing: -0.5px; }
+
+        .meta-data {
+            font-family: 'Inter', sans-serif; color: var(--text-secondary);
+            font-size: 0.95rem; display: flex; flex-wrap: wrap; gap: 25px;
+        }
+        .meta-data span { display: flex; align-items: center; gap: 8px; }
+        .meta-data i { color: var(--accent-blue); }
+
+        h2 { font-size: 1.8rem; margin-top: 50px; margin-bottom: 20px; }
+        p { margin-bottom: 25px; }
+        strong { color: white; font-weight: 700; }
+        
+        ul { margin-bottom: 30px; padding-left: 25px; }
+        li { margin-bottom: 12px; }
+
+        /* Imágenes */
+        figure { margin: 50px 0; }
+        img { width: 100%; height: auto; display: block; border-radius: 4px; border: 1px solid var(--border-color); }
+        figcaption {
+            text-align: center; font-family: 'Inter', sans-serif; font-size: 0.9rem;
+            color: var(--text-secondary); margin-top: 15px; font-style: italic;
+        }
+
+        /* Sección de Descargas */
+        .resources-section { margin-top: 80px; padding-top: 40px; border-top: 1px solid var(--border-color); }
+        .btn-download {
+            display: inline-flex; align-items: center; gap: 10px;
+            background-color: #21262d; color: var(--accent-blue);
+            padding: 10px 20px; text-decoration: none;
+            font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.95rem;
+            border-radius: 6px; border: 1px solid var(--border-color);
+            transition: 0.2s; margin-right: 15px; margin-bottom: 10px;
+        }
+        .btn-download:hover { background-color: #30363d; border-color: #8b949e; }
+    </style>
+</head>
+<body>
+
+    <main class="paper-container">
+        
+        <a href="index.html" class="back-link">
+            <i class="fas fa-arrow-left"></i> Volver al Portafolio
+        </a>
+
+        <header>
+            <h1>TÍTULO DEL PROYECTO AQUÍ</h1>
+            
+            <div class="meta-data">
+                <span><i class="fas fa-user-circle"></i> César Torres</span>
+                <span><i class="far fa-calendar-alt"></i> FECHA</span>
+                <span><i class="fas fa-tag"></i> CATEGORÍA/TAG</span>
+            </div>
+        </header>
+
+        <h2>1. Introducción</h2>
+        <p>
+            Escribe aquí la introducción de tu proyecto. Explica el problema, el contexto y por qué es importante.
+        </p>
+
+        <h2>2. Metodología</h2>
+        <p>
+            Describe las herramientas que usaste (Python, ArcGIS, etc.) y los pasos que seguiste.
+        </p>
+        <ul>
+            <li><strong>Paso 1:</strong> Explicación del paso.</li>
+            <li><strong>Paso 2:</strong> Explicación del paso.</li>
+            <li><strong>Paso 3:</strong> Explicación del paso.</li>
+        </ul>
+
+        <h2>3. Resultados</h2>
+        <p>
+            Aquí presentas tu mapa o gráfico final.
+        </p>
+
+        <figure>
+            <img src="https://via.placeholder.com/1200x600" alt="Descripción de la imagen">
+            <figcaption>Figura 1: Leyenda explicativa de la imagen.</figcaption>
+        </figure>
+
+        <h3>Análisis de Resultados</h3>
+        <p>
+            Explica qué significa lo que vemos en la imagen. ¿Qué patrones encontraste? ¿Qué conclusiones sacas?
+        </p>
+
+        <h2>4. Conclusión</h2>
+        <p>
+            Cierra el artículo con una conclusión fuerte sobre el impacto de tu trabajo.
+        </p>
+
+        <div class="resources-section">
+            <h3>Recursos Adicionales</h3>
+            <p>Descarga los archivos relacionados con este proyecto.</p>
+            
+            <a href="#" class="btn-download"><i class="fas fa-file-pdf"></i> Descargar PDF</a>
+            <a href="#" class="btn-download"><i class="fab fa-github"></i> Ver Código</a>
+        </div>
+
+    </main>
+
+</body>
+</html>

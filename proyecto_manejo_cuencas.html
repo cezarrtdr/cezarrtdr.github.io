@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informe Hidrológico: Cuenca Aguaytía</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- ESTILOS GENERALES (TEMA OSCURO PRO) --- */
+        :root {
+            --bg-body: #0d1117;
+            --bg-card: #161b22;
+            --text-main: #c9d1d9;
+            --text-muted: #8b949e;
+            --accent: #58a6ff;
+            --success: #2ea043;
+            --danger: #f85149;
+            --border: #30363d;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-family: 'Merriweather', serif;
+            line-height: 1.8;
+            font-size: 17px;
+            padding: 40px 20px;
+        }
+
+        .container { max-width: 1000px; margin: 0 auto; }
+
+        /* Tipografía */
+        h1, h2, h3, h4 { font-family: 'Inter', sans-serif; color: #fff; font-weight: 700; }
+        h1 { font-size: 2.5rem; margin-bottom: 1rem; line-height: 1.2; }
+        h2 { 
+            font-size: 1.8rem; margin-top: 3rem; margin-bottom: 1.5rem; 
+            border-bottom: 1px solid var(--border); padding-bottom: 0.5rem;
+            color: var(--accent);
+        }
+        h3 { font-size: 1.3rem; margin-bottom: 0.5rem; margin-top: 1.5rem; }
+        p { margin-bottom: 1.5rem; color: var(--text-main); }
+        strong { color: #fff; font-weight: 600; }
+
+        /* Header */
+        header { margin-bottom: 3rem; border-bottom: 1px solid var(--border); padding-bottom: 2rem; }
+        .meta { display: flex; gap: 20px; color: var(--text-muted); font-family: 'Inter', sans-serif; font-size: 0.9rem; flex-wrap: wrap; }
+        .meta i { color: var(--accent); margin-right: 5px; }
+
+        /* Ficha Morfométrica (Card) */
+        .metrics-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 3rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .metric-item small { display: block; color: var(--text-muted); font-family: 'Inter', sans-serif; margin-bottom: 5px; }
+        .metric-item span { display: block; font-size: 1.8rem; font-weight: 700; color: #fff; font-family: 'Inter', sans-serif; }
+        .metric-item .unit { font-size: 1rem; color: var(--text-muted); font-weight: 400; }
+
+        /* Grid de Mapas Automatizados (2 Columnas) */
+        .map-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-bottom: 3rem;
+        }
+        .map-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.2s;
+        }
+        .map-card:hover { border-color: var(--accent); }
+        .map-card img { width: 100%; height: auto; display: block; border-bottom: 1px solid var(--border); }
+        .map-info { padding: 20px; }
+        .map-info h4 { font-size: 1.1rem; margin-bottom: 10px; color: #fff; }
+        .map-info p { font-size: 0.9rem; margin-bottom: 0; color: var(--text-muted); font-family: 'Inter', sans-serif; }
+
+        /* Mapas Ambientales Grandes */
+        .env-map { margin-bottom: 4rem; }
+        .env-map img { width: 100%; border-radius: 8px; border: 1px solid var(--border); margin: 20px 0; }
+        .env-desc { background: rgba(88, 166, 255, 0.1); border-left: 4px solid var(--accent); padding: 15px; border-radius: 4px; font-size: 0.95rem; }
+
+        /* Bloque de Código */
+        pre {
+            background: #000;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            border: 1px solid var(--border);
+            margin-top: 20px;
+        }
+        code { font-family: 'Courier New', monospace; color: #e6edf3; font-size: 0.85rem; }
+        .keyword { color: #ff7b72; } /* Python keywords */
+        .string { color: #a5d6ff; }  /* Strings */
+        .comment { color: #8b949e; font-style: italic; } /* Comentarios */
+
+        /* Botón Volver */
+        .btn-back { display: inline-flex; align-items: center; text-decoration: none; color: var(--text-muted); margin-bottom: 20px; font-family: 'Inter', sans-serif; font-size: 0.9rem; }
+        .btn-back:hover { color: var(--accent); }
+
+        /* --- ESTILOS NUEVOS PARA LA SECCIÓN DE DESCARGA --- */
+
+/* Tarjeta contenedora moderna */
+.download-card-pro {
+    background: linear-gradient(145deg, #161b22, #1c2128); /* Degradado sutil oscuro */
+    padding: 60px 40px;
+    border-radius: 16px; /* Bordes más redondeados */
+    border: 1px solid rgba(88, 166, 255, 0.1); /* Borde azul muy sutil */
+    text-align: center;
+    margin-top: 40px;
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5); /* Sombra profunda */
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+/* Efecto al pasar el mouse sobre la tarjeta */
+.download-card-pro:hover {
+    border-color: var(--accent); /* Se ilumina el borde azul */
+    transform: translateY(-5px); /* Flota un poco hacia arriba */
+}
+
+/* Estilo tipo "código" para el nombre del archivo */
+.filename-badge {
+    font-family: 'Courier New', monospace;
+    background: rgba(55, 118, 171, 0.15); /* Fondo azul Python transparente */
+    color: #58a6ff; /* Texto azul claro */
+    padding: 10px 20px;
+    border-radius: 8px;
+    display: inline-block;
+    margin: 20px 0;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    border: 1px solid rgba(55, 118, 171, 0.3);
+}
+
+/* Botón "Héroe" (Grande y llamativo) */
+.hero-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    background: linear-gradient(90deg, #2ea043, #3fb950); /* Degradado Verde Éxito */
+    color: white !important; /* Forzar texto blanco */
+    text-decoration: none;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 1.3rem; /* Texto más grande */
+    padding: 20px 50px; /* Botón más gordo */
+    border-radius: 50px; /* Forma de píldora */
+    border: none;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); /* Transición suave */
+    box-shadow: 0 10px 20px -10px rgba(46, 160, 67, 0.5); /* Sombra verde brillante */
+    cursor: pointer;
+}
+
+/* Efecto al pasar el mouse sobre el botón */
+.hero-btn:hover {
+    transform: scale(1.05); /* Crece ligeramente */
+    box-shadow: 0 15px 30px -10px rgba(46, 160, 67, 0.7); /* Sombra más intensa */
+    filter: brightness(1.1); /* Se vuelve un poco más brillante */
+}
+
+.hero-btn i {
+    font-size: 1.5rem; /* Icono más grande */
+}
+/* Sección de Descargas */
+        .resources-section { margin-top: 80px; padding-top: 40px; border-top: 1px solid var(--border-color); }
+        .btn-download {
+            display: inline-flex; align-items: center; gap: 10px;
+            background-color: #21262d; color: var(--accent-blue);
+            padding: 10px 20px; text-decoration: none;
+            font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.95rem;
+            border-radius: 6px; border: 1px solid var(--border-color);
+            transition: 0.2s; margin-right: 15px; margin-bottom: 10px;
+        }
+        .btn-download:hover { background-color: #30363d; border-color: #8b949e; }
+    </style>
+</head>
+
+
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <a href="index.html" class="btn-back"><i class="fas fa-arrow-left"></i> Volver al Portafolio</a>
+
+    <header>
+        <h1>Gestión Integral de la Cuenca del Río Aguaytía: Automatización Python & Análisis Ambiental</h1>
+        <div class="meta">
+            <span><i class="fas fa-user"></i> César Torres</span>
+            <span><i class="fas fa-calendar"></i> Enero 2026</span>
+            <span><i class="fas fa-layer-group"></i> GIS & Data</span>
+            <span><i class="fab fa-python"></i> Python ArcPy</span>
+        </div>
+    </header>
+
+    <p>
+        El presente proyecto aborda la caracterización hidrológica y ambiental de la <strong>Cuenca del Río Aguaytía</strong> (Ucayali/Huánuco). La metodología se dividió en dos fases estratégicas: primero, la <strong>automatización mediante Python (ArcPy)</strong> para generar la cartografía base y los cálculos morfométricos en tiempo récord (< 5 min); y segundo, la aplicación de <strong>Álgebra de Mapas</strong> para obtener índices ambientales complejos esenciales para la gestión de riesgos.
+    </p>
+
+    <h2>I. Fase Automatizada: Cartografía Base y Morfometría</h2>
+    
+    <p>
+        Utilizando un script personalizado en Python, se procesó el Modelo de Elevación Digital (DEM) para obtener automáticamente los parámetros físicos de la cuenca. Esto elimina el error humano y estandariza los resultados.
+    </p>
+
+        <div class="metrics-card" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;">
+        
+        <div class="metric-item">
+            <small><i class="fas fa-ruler-combined"></i> Área de Drenaje</small>
+            <span>11,352 <span class="unit">km²</span></span>
+        </div>
+        <div class="metric-item">
+            <small><i class="fas fa-border-style"></i> Perímetro Total</small>
+            <span>689.9 <span class="unit">km</span></span>
+        </div>
+        <div class="metric-item">
+            <small><i class="fas fa-calculator"></i> Índice de Gravelius (Kc)</small>
+            <span style="color: var(--success);">1.826</span>
+            <small style="color: var(--text-muted); font-size: 0.8rem;">Cuenca Alargada (Bajo Riesgo)</small>
+        </div>
+
+        <div class="metric-item">
+            <small><i class="fas fa-mountain"></i> Altitud Media / Rango</small>
+            <span>423.4 <span class="unit">m.s.n.m.</span></span> 
+            <small style="color: var(--text-muted); font-size: 0.8rem;">Min: 136m | Max: 2,372m</small>
+        </div>
+
+        <div class="metric-item">
+            <small><i class="fas fa-chart-area"></i> Pendiente Media</small>
+            <span>19.21 <span class="unit">%</span></span>
+            <small style="color: var(--text-muted); font-size: 0.8rem;">Relieve Moderado</small>
+        </div>
+
+        <div class="metric-item">
+            <small><i class="fas fa-code-branch"></i> Orden de Cuenca</small>
+            <span style="color: var(--accent);">12º <span class="unit">Orden</span></span>
+            <small style="color: var(--text-muted); font-size: 0.8rem;">Alta Complejidad (Strahler)</small>
+        </div>
+
+    </div>
+
+    <div class="map-grid">
+        
+        <div class="map-card">
+            <img src="Manejo_cuencas/Mapa_Pendientes.jpg" alt="Mapa de Pendientes">
+            <div class="map-info">
+                <h4>1. Mapa de Pendientes (%)</h4>
+                <p>Calcula la inclinación del terreno en porcentaje. Fundamental para determinar la velocidad de la escorrentía superficial y la estabilidad del suelo.</p>
+            </div>
+        </div>
+
+        <div class="map-card">
+            <img src="Manejo_cuencas/Mapa_Sombras.jpg" alt="Sombras">
+            <div class="map-info">
+                <h4>2. Sombras(Hilshade)</h4>
+                <p>Da el mapa de sombras de la cuneca.</p>
+            </div>
+        </div>
+
+        <div class="map-card">
+            <img src="Manejo_cuencas/Mapa_CUM.jpg" alt="Capacidad de Uso Mayor">
+            <div class="map-info">
+                <h4>3. Capacidad de Uso Mayor (CUM)</h4>
+                <p>Clasificación agronómica automática. Identifica Tierras Aptas para Cultivos (A, C), Pastos (P), Forestales (F) y Protección (X) según la morfología.</p>
+            </div>
+        </div>
+
+        <div class="map-card">
+            <img src="Manejo_cuencas/Mapa_Altitudes.jpg" alt="Pisos Altitudinales">
+            <div class="map-info">
+                <h4>4. Pisos Altitudinales</h4>
+                <p>Zonificación basada en las 8 Regiones Naturales del Perú. Delimita claramente la Selva Alta (Rupa-Rupa) y la Selva Baja (Omagua).</p>
+            </div>
+        </div>
+
+        <div class="map-card">
+            <img src="Manejo_cuencas/Mapa_Orientacion.jpg" alt="Orientación de Laderas">
+            <div class="map-info">
+                <h4>5. Orientación (Aspect)</h4>
+                <p>Indica la dirección hacia donde miran las laderas (N, S, E, O). Vital para entender la insolación, microclimas y evapotranspiración.</p>
+            </div>
+        </div>
+
+        <div class="map-card">
+            <img src="Manejo_cuencas/Mapa_Drenajes.jpg" alt="Densidad de Drenaje">
+            <div class="map-info">
+                <h4>6. Densidad de Drenaje</h4>
+                <p>Mapa de calor que muestra la concentración de ríos. Zonas rojas indican suelos impermeables o rocosos con alta respuesta a inundaciones.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <h2>II. Fase Avanzada: Índices Ambientales (Manuales)</h2>
+    <p>
+        Sobre la base automatizada, se aplicó álgebra de mapas para modelar fenómenos físicos complejos. Estos mapas son insumos críticos para la planificación territorial.
+    </p>
+
+    <div class="env-map">
+        <h3>1. Índice Topográfico de Humedad (TWI)</h3>
+        <div class="env-desc">
+            <i class="fas fa-info-circle"></i> <strong>Utilidad:</strong> Predice zonas de saturación de agua. Los valores altos (Azules) indican humedales, aguajales o zonas inundables. Los valores bajos (Marrones) indican zonas de recarga o drenaje rápido.
+        </div>
+        <img src="Manejo_cuencas/Mapa_IDW.jpg" alt="Mapa TWI">
+        <p style="font-size: 0.9rem; font-style: italic; text-align: center;">Figura 7: Visualización del TWI. Nótese la red dendrítica de acumulación hídrica.</p>
+    </div>
+
+    <div class="env-map">
+        <h3>2. Potencial de Erosión Hídrica (Factor LS)</h3>
+        <div class="env-desc">
+            <i class="fas fa-exclamation-triangle"></i> <strong>Utilidad:</strong> Modelo RUSLE (Moore & Burch). Las zonas rojas muestran dónde la combinación de pendiente fuerte y longitud de ladera genera mayor pérdida de suelo. Prioritario para reforestación.
+        </div>
+        <img src="Manejo_cuencas/Mapa_erosion.jpg" alt="Mapa Erosión LS">
+        <p style="font-size: 0.9rem; font-style: italic; text-align: center;">Figura 8: Distribución del riesgo erosivo. Alto impacto en las cabeceras de cuenca (Oeste).</p>
+    </div>
+
+    <div class="env-map">
+        <h3>3. Curvatura Geomorfológica</h3>
+        <div class="env-desc">
+            <i class="fas fa-mountain"></i> <strong>Utilidad:</strong> Define la geometría del flujo. Zonas Cóncavas (Azul) aceleran y concentran el agua. Zonas Convexas (Rojo) la dispersan.
+        </div>
+        <img src="Manejo_cuencas/Mapa_Curvatura.jpg" alt="Mapa Curvatura">
+        <p style="font-size: 0.9rem; font-style: italic; text-align: center;">Figura 9: Análisis de la morfología del terreno para modelos de escorrentía.</p>
+    </div>
+
+
+    <h2>III. Script de Automatización (Python)</h2>
+<p>
+    Para garantizar la transparencia y reproducibilidad de este estudio, el código fuente completo está disponible para descarga directa. El archivo <strong>Jupyter Notebook (.ipynb)</strong> contiene el flujo de trabajo documentado, listo para ser ejecutado en ArcGIS Pro.
+</p>
+
+<div class="download-card-pro">
+    
+    <i class="fab fa-python" style="font-size: 6rem; color: #3776ab; filter: drop-shadow(0 0 15px rgba(55, 118, 171, 0.4));"></i>
+    
+    <div>
+        <span class="filename-badge">Automatización_Cuencas_v1.0.ipynb</span>
+    </div>
+
+    <p style="font-size: 1rem; color: var(--text-muted); margin-bottom: 40px;">
+        <i class="fas fa-check-circle" style="color: var(--success); margin-right: 8px;"></i> 
+        Compatible con <strong>ArcGIS Pro 3.x</strong> y <strong>Python 3.9+</strong>
+    </p>
+
+    <a href="Manejo_cuencas/Manejo_de_cuencas.ipynb" download class="hero-btn">
+        <i class="fas fa-cloud-download-alt"></i> DESCARGAR NOTEBOOK
+    </a>
+
+</div>
+<div class="resources-section">
+            <h3>Recursos del Proyecto</h3>
+            <p>Accede a los scripts de Python utilizados y a los layouts en alta resolución.</p>
+            
+            <a href="https://github.com/cezarrtdr/Automatizacion_hidrolog-a.git" class="btn-download"><i class="fab fa-github"></i> Ver recursos</a>
+        </div>
+
+</div>
+</main>
+
+
+</body>
+</html>

@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informe Técnico: Calidad de Aire Lima (2015-2025)</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- CONFIGURACIÓN BASE (TEMA OSCURO) --- */
+        :root {
+            --bg-body: #0d1117;       /* Fondo General (Negro suave) */
+            --bg-card: #161b22;       /* Fondo de tarjetas */
+            --bg-code: #1e1e1e;       /* Fondo VS Code (Gris oscuro exacto) */
+            --bg-output: #050505;     /* Fondo de Resultados (Casi negro) */
+            
+            --text-main: #c9d1d9;     /* Texto principal */
+            --text-muted: #8b949e;    /* Texto secundario */
+            
+            --accent: #58a6ff;        /* Azul brillante */
+            --border: #30363d;        /* Bordes sutiles */
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-family: 'Merriweather', serif; 
+            line-height: 1.8;
+            font-size: 17px;
+            padding: 40px 20px;
+            margin: 0;
+        }
+
+        .paper-container { max-width: 900px; margin: 0 auto 100px auto; }
+
+        /* --- TIPOGRAFÍA --- */
+        h1, h2, h3 { font-family: 'Inter', sans-serif; color: #ffffff; font-weight: 700; }
+        h1 { font-size: 2.5rem; margin-bottom: 20px; letter-spacing: -0.5px; }
+        h2 { border-bottom: 1px solid var(--border); padding-bottom: 10px; margin-top: 60px; margin-bottom: 25px; font-size: 1.8rem; }
+        h3 { font-size: 1.2rem; margin-top: 40px; margin-bottom: 15px; color: #ffffff; }
+        p { margin-bottom: 20px; color: var(--text-main); }
+        strong { color: white; font-weight: 600; }
+        a { color: var(--accent); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        
+        ul { margin-bottom: 30px; padding-left: 20px; }
+        li { margin-bottom: 10px; }
+
+        /* --- HEADER --- */
+        header { border-bottom: 1px solid var(--border); padding-bottom: 30px; margin-bottom: 50px; }
+        .meta-data { font-family: 'Inter', sans-serif; color: var(--text-muted); font-size: 0.9rem; display: flex; gap: 20px; flex-wrap: wrap; }
+        .meta-data span { display: flex; align-items: center; gap: 6px; }
+        .meta-data i { color: var(--accent); }
+
+        /* --- ESTILO DE CÓDIGO (VS CODE DARK EXACTO) --- */
+        .code-window {
+            background-color: var(--bg-code); 
+            border: 1px solid #333;
+            border-radius: 8px;
+            margin-bottom: 0; /* Pegado al output */
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .code-header {
+            background-color: #252526; /* Cabecera VS Code */
+            padding: 8px 15px;
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid #111;
+        }
+
+        .dots { display: flex; gap: 8px; }
+        .dot { width: 12px; height: 12px; border-radius: 50%; }
+        .red { background-color: #ff5f56; }
+        .yellow { background-color: #ffbd2e; }
+        .green { background-color: #27c93f; }
+        
+        .filename { font-family: 'Inter', sans-serif; font-size: 0.8rem; color: #999; margin-left: 15px;}
+
+        .copy-btn {
+            background: transparent; border: 1px solid #444; color: #ccc;
+            border-radius: 4px; padding: 4px 10px; font-size: 0.75rem; cursor: pointer;
+            display: flex; align-items: center; gap: 6px; transition: 0.2s;
+        }
+        .copy-btn:hover { background-color: #333; color: white; }
+
+        pre { margin: 0; padding: 20px; overflow-x: auto; color: #d4d4d4; }
+        code { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; line-height: 1.6; }
+
+        /* --- SYNTAX HIGHLIGHTING (PALETA EXACTA DE TU IMAGEN) --- */
+        .keyword { color: #c586c0; }    /* Violeta (import, as, from) */
+        .function { color: #dcdcaa; }   /* Amarillo (print, read_csv) */
+        .string { color: #b5cea8; }     /* Verde Claro (Strings) */
+        .number { color: #ce9178; }     /* Naranja (Números) */
+        .comment { color: #6a9955; }    /* Verde Oscuro (Comentarios) */
+        .variable { color: #9cdcfe; }   /* Azul Claro (Variables) */
+        .class-name { color: #4ec9b0; } /* Turquesa (Clases) */
+
+        /* --- ESTILO OUTPUT (TEMA NEGRO JUPYTER) --- */
+        .jupyter-output {
+            background-color: var(--bg-output); /* FONDO NEGRO */
+            color: #e0e0e0;
+            padding: 15px;
+            border: 1px solid var(--border);
+            border-top: none; /* Unir con el código */
+            border-left: 4px solid var(--border); 
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            margin-bottom: 40px;
+            overflow-x: auto;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+        }
+        
+        .output-text { white-space: pre-wrap; line-height: 1.5; color: #ccc; }
+
+        /* --- TABLAS (ESTILO DARK MODE) --- */
+        table.dataframe {
+            border-collapse: collapse;
+            width: 100%;
+            font-family: 'Inter', sans-serif; 
+            font-size: 0.9rem;
+            margin: 10px 0;
+            background-color: var(--bg-output);
+        }
+        table.dataframe th {
+            text-align: left;
+            padding: 12px 15px;
+            background-color: #161b22; /* Cabecera oscura */
+            color: #ffffff;
+            font-weight: 600;
+            border-bottom: 2px solid var(--border);
+        }
+        table.dataframe td {
+            padding: 10px 15px;
+            border-bottom: 1px solid #21262d; /* Líneas sutiles */
+            color: #c9d1d9;
+        }
+        table.dataframe tr:hover { background-color: #1f2428; }
+
+        /* BADGES (Adaptados a fondo negro) */
+        .badge {
+            padding: 4px 10px; border-radius: 4px; font-weight: 700; font-size: 0.75rem; display: inline-block;
+        }
+        .b-fail { 
+            background-color: rgba(248, 81, 73, 0.15); /* Rojo transparente */
+            color: #ff7b72; 
+            border: 1px solid rgba(248, 81, 73, 0.4); 
+        } 
+        .b-pass { 
+            background-color: rgba(46, 160, 67, 0.15); /* Verde transparente */
+            color: #3fb950; 
+            border: 1px solid rgba(46, 160, 67, 0.4); 
+        }
+
+        /* --- IMÁGENES --- */
+        figure { margin: 40px 0; background-color: var(--bg-card); padding: 5px; border-radius: 6px; border: 1px solid var(--border); text-align: center; }
+        img { max-width: 100%; height: auto; border-radius: 4px; }
+        figcaption {
+            font-family: 'Inter', sans-serif; font-size: 0.85rem; color: var(--text-muted); margin-top: 10px; font-style: italic;
+        }
+
+        /* Enlace volver */
+        .back-link { font-family: 'Inter', sans-serif; font-size: 0.9rem; color: var(--text-muted); display: inline-flex; align-items: center; gap: 8px; margin-bottom: 40px; }
+        .back-link:hover { color: var(--accent); }
+
+        /* --- SCROLLBAR PERSONALIZADO (ESTILO VS CODE / DARK) --- */
+        
+        /* Para Chrome, Edge, Safari */
+        ::-webkit-scrollbar {
+            width: 10px;  /* Ancho vertical */
+            height: 10px; /* Alto horizontal */
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #0d1117; /* Color del fondo del riel (igual al body) */
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background-color: #30363d; /* Color de la barra (gris oscuro) */
+            border-radius: 6px;       /* Bordes redondeados */
+            border: 2px solid #0d1117; /* Margen para que parezca flotante */
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: #58a6ff; /* Azul al pasar el mouse (interactivo) */
+        }
+        
+        /* Para Firefox */
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #30363d #0d1117;
+        }
+
+        /* Sección de Descargas */
+        .resources-section { margin-top: 80px; padding-top: 40px; border-top: 1px solid var(--border-color); }
+        .btn-download {
+            display: inline-flex; align-items: center; gap: 10px;
+            background-color: #21262d; color: var(--accent-blue);
+            padding: 10px 20px; text-decoration: none;
+            font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.95rem;
+            border-radius: 6px; border: 1px solid var(--border-color);
+            transition: 0.2s; margin-right: 15px; margin-bottom: 10px;
+        }
+        .btn-download:hover { background-color: #30363d; border-color: #8b949e; }
+    </style>
+</head>
+
+    </style>
+</head>
+<body>
+
+    <main class="paper-container">
+        
+        <a href="index.html" class="back-link">
+            <i class="fas fa-arrow-left"></i> Volver al Portafolio
+        </a>
+
+        <header>
+            <h1>Análisis de Calidad de Aire en Lima (2015-2025)</h1>
+            <div class="meta-data">
+                <span><i class="fas fa-user-circle"></i> César Torres</span>
+                <span><i class="fas fa-code"></i> Python (Pandas, Scikit-learn)</span>
+                <span><i class="fas fa-map-marker-alt"></i> Lima, Perú</span>
+            </div>
+        </header>
+
+        <h2>1. Introducción</h2>
+        <p>
+            La contaminación atmosférica es uno de los principales riesgos ambientales en Lima.
+        </p>
+        <p>
+            Este proyecto analiza el comportamiento de las partículas <strong>PM2.5</strong> y <strong>PM10</strong> utilizando datos históricos del SENAMHI, obtenidos oficialmente desde la plataforma de <a href="https://www.datosabiertos.gob.pe/dataset/monitoreo-de-los-contaminantes-del-aire-en-lima-metropolitana-servicio-nacional-de" target="_blank">Datos Abiertos del Perú <i class="fas fa-external-link-alt" style="font-size: 0.8em;"></i></a>.
+        </p>
+        <p>
+            El alcance del estudio incluye auditar el cumplimiento normativo (ECA) y desarrollar modelos predictivos mediante Machine Learning.
+        </p>
+
+        <div style="display: flex; flex-direction: column; gap: 0;">
+            
+            <div class="code-window" style="margin-bottom: 0; border-bottom: none; border-bottom-left-radius: 0; border-bottom-right-radius: 0;">
+                <div class="code-header">
+                    <div class="header-left">
+                        <div class="dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                        <span class="filename">1_carga_datos.py</span>
+                    </div>
+                    <button class="copy-btn"><i class="far fa-copy"></i> Copiar</button>
+                </div>
+                <pre><code><span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+
+<span class="comment"># Carga del dataset crudo (CSV)</span>
+<span class="variable">df</span> = pd.<span class="function">read_csv</span>(<span class="string">"Monitoreo de los contaminantes del aire en Lima Metropolitana - [Servicio Nacional de Meteorología e Hidrología del Perú - SENAMHI]_1.csv"</span>)
+
+<span class="comment"># Previsualización</span>
+<span class="variable">df</span></code></pre>
+            </div>
+
+            <div class="jupyter-output" style="
+                border-top: 1px solid #333; 
+                border-top-left-radius: 0; 
+                border-top-right-radius: 0;
+                max-height: 400px; /* Scroll si es muy largo */
+                overflow-y: auto;">
+                
+                <table class="dataframe">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>ID</th>
+                            <th>ESTACION</th>
+                            <th>FECHA</th>
+                            <th>HORA</th>
+                            <th>...</th>
+                            <th>PM10</th>
+                            <th>PM2_5</th>
+                            <th>NO2</th>
+                            <th>DISTRITO</th>
+                            <th>FECHA_CORTE</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>0</th>
+                            <td>1</td>
+                            <td>CAMPO_DE_MARTE</td>
+                            <td>20150101</td>
+                            <td>50000</td>
+                            <td>...</td>
+                            <td>37.920</td>
+                            <td>NaN</td>
+                            <td>NaN</td>
+                            <td>JESUS_MARIA</td>
+                            <td>20240531</td>
+                        </tr>
+                        <tr>
+                            <th>1</th>
+                            <td>2</td>
+                            <td>CAMPO_DE_MARTE</td>
+                            <td>20150101</td>
+                            <td>60000</td>
+                            <td>...</td>
+                            <td>53.390</td>
+                            <td>NaN</td>
+                            <td>NaN</td>
+                            <td>JESUS_MARIA</td>
+                            <td>20240531</td>
+                        </tr>
+                        <tr>
+                            <th>2</th>
+                            <td>3</td>
+                            <td>CAMPO_DE_MARTE</td>
+                            <td>20150101</td>
+                            <td>70000</td>
+                            <td>...</td>
+                            <td>16.490</td>
+                            <td>NaN</td>
+                            <td>NaN</td>
+                            <td>JESUS_MARIA</td>
+                            <td>20240531</td>
+                        </tr>
+                        <tr>
+                            <th>3</th>
+                            <td>4</td>
+                            <td>CAMPO_DE_MARTE</td>
+                            <td>20150101</td>
+                            <td>80000</td>
+                            <td>...</td>
+                            <td>80.740</td>
+                            <td>NaN</td>
+                            <td>NaN</td>
+                            <td>JESUS_MARIA</td>
+                            <td>20240531</td>
+                        </tr>
+                        <tr>
+                            <th>4</th>
+                            <td>5</td>
+                            <td>CAMPO_DE_MARTE</td>
+                            <td>20150101</td>
+                            <td>90000</td>
+                            <td>...</td>
+                            <td>27.400</td>
+                            <td>NaN</td>
+                            <td>NaN</td>
+                            <td>JESUS_MARIA</td>
+                            <td>20240531</td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="11" style="text-align: center; color: #666; padding: 10px 0;">
+                                <i class="fas fa-ellipsis-v"></i>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>577790</th>
+                            <td>577791</td>
+                            <td>VILLA_MARIA...</td>
+                            <td>20240531</td>
+                            <td>200000</td>
+                            <td>...</td>
+                            <td>12.110</td>
+                            <td>12.070</td>
+                            <td>39.9</td>
+                            <td>VILLA_MAR...</td>
+                            <td>20240531</td>
+                        </tr>
+                        <tr>
+                            <th>577791</th>
+                            <td>577792</td>
+                            <td>VILLA_MARIA...</td>
+                            <td>20240531</td>
+                            <td>210000</td>
+                            <td>...</td>
+                            <td>8.320</td>
+                            <td>8.300</td>
+                            <td>27.4</td>
+                            <td>VILLA_MAR...</td>
+                            <td>20240531</td>
+                        </tr>
+                        <tr>
+                            <th>577792</th>
+                            <td>577793</td>
+                            <td>VILLA_MARIA...</td>
+                            <td>20240531</td>
+                            <td>220000</td>
+                            <td>...</td>
+                            <td>8.520</td>
+                            <td>8.440</td>
+                            <td>31.6</td>
+                            <td>VILLA_MAR...</td>
+                            <td>20240531</td>
+                        </tr>
+                        <tr>
+                            <th>577793</th>
+                            <td>577794</td>
+                            <td>VILLA_MARIA...</td>
+                            <td>20240531</td>
+                            <td>230000</td>
+                            <td>...</td>
+                            <td>7.015</td>
+                            <td>6.977</td>
+                            <td>29.1</td>
+                            <td>VILLA_MAR...</td>
+                            <td>20240531</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div style="font-size: 0.75rem; color: #8b949e; margin-top: 10px;">
+                    577794 rows × 15 columns
+                </div>
+            </div>
+        </div>
+
+
+        <h2>2. Ingeniería y Limpieza de Datos</h2>
+        <p>
+            El dataset original presentaba un 34% de datos faltantes. Se aplicó interpolación lineal para preservar la continuidad de las series temporales sin introducir sesgos artificiales.
+        </p>
+
+
+        <div class="code-window">
+            <div class="code-header">
+                <div class="header-left">
+                    <div class="dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                    <span class="filename">1_limpieza_datos.py</span>
+                </div>
+                <button class="copy-btn"><i class="far fa-copy"></i> Copiar</button>
+            </div>
+            <pre><code><span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+
+<span class="comment"># 1. Carga y conversión temporal</span>
+<span class="variable">df</span>[<span class="string">'FECHA_DT'</span>] = pd.<span class="function">to_datetime</span>(<span class="variable">df</span>[<span class="string">'FECHA'</span>], format=<span class="string">'%Y%m%d'</span>)
+
+<span class="comment"># 2. Imputación (Interpolación Lineal)</span>
+<span class="variable">df_clean</span> = <span class="variable">df</span>.<span class="function">interpolate</span>(method=<span class="string">'linear'</span>, limit_direction=<span class="string">'both'</span>)
+
+<span class="function">print</span>(<span class="string">f"Registros recuperados: {len(df_clean)}"</span>)
+<span class="function">print</span>(<span class="string">"Dataset limpio y listo."</span>)</code></pre>
+        </div>
+
+        <div class="jupyter-output">
+            <div class="output-text">Registros recuperados: 577794
+Dataset limpio y listo.</div>
+        </div>
+
+        <h2>3. Análisis Exploratorio de Datos (EDA)</h2>
+        <h3>3.1 Estadística Descriptiva</h3>
+        
+        <div style="display: flex; flex-direction: column; gap: 0; margin-bottom: 30px;">
+            
+            <div class="code-window" style="margin-bottom: 0; border-bottom: none; border-bottom-left-radius: 0; border-bottom-right-radius: 0;">
+                <div class="code-header">
+                    <div class="header-left">
+                        <div class="dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                        <span class="filename">2_estadistica_descriptiva.py</span>
+                    </div>
+                    <button class="copy-btn"><i class="far fa-copy"></i> Copiar</button>
+                </div>
+                <pre><code><span class="variable">cols_interes</span> = [<span class="string">'PM10'</span>, <span class="string">'PM2_5'</span>, <span class="string">'NO2'</span>] 
+<span class="variable">cols_existentes</span> = [<span class="variable">c</span> <span class="keyword">for</span> <span class="variable">c</span> <span class="keyword">in</span> <span class="variable">cols_interes</span> <span class="keyword">if</span> <span class="variable">c</span> <span class="keyword">in</span> <span class="variable">df_clean</span>.<span class="variable">columns</span>]
+
+<span class="comment"># Generar resumen estadístico y transponer (.T) para mejor lectura</span>
+<span class="variable">resumen</span> = <span class="variable">df_clean</span>[<span class="variable">cols_existentes</span>].<span class="function">describe</span>().<span class="function">round</span>(<span class="number">2</span>).<span class="variable">T</span>
+<span class="variable">resumen</span></code></pre>
+            </div>
+
+            <div class="jupyter-output" style="
+                border-top: 1px solid #30363d; 
+                border-top-left-radius: 0; 
+                border-top-right-radius: 0;
+                overflow-x: auto;
+                background-color: #0d1117;">
+                
+                <table class="dataframe">
+                    <thead>
+                        <tr>
+                            <th>Variable</th>
+                            <th>Count</th>
+                            <th>Mean</th>
+                            <th>Std</th>
+                            <th>Min</th>
+                            <th>Max</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>PM10</th>
+                            <td>577,794</td>
+                            <td>62.46</td>
+                            <td>46.70</td>
+                            <td>2.31</td>
+                            <td>974.0</td>
+                        </tr>
+                        <tr>
+                            <th>PM2.5</th>
+                            <td>577,794</td>
+                            <td>24.91</td>
+                            <td>16.13</td>
+                            <td>1.73</td>
+                            <td>720.7</td>
+                        </tr>
+                        <tr>
+                            <th>NO2</th>
+                            <td>577,794</td>
+                            <td>21.18</td>
+                            <td>15.64</td>
+                            <td>0.00</td>
+                            <td>231.2</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <h3>3.2 Visualización de Resultados</h3>
+            ¿Qué estación tiene, en promedio, la peor calidad de aire?
+        <figure>
+            <img src="Graficos_calidad-aire/promedio_historico.png" alt="Ranking de Contaminación">
+            <figcaption>Fig 1. Promedio histórico. Santa Anita supera significativamente a Lima Centro.</figcaption>
+        </figure>
+
+
+        <h3>3.3 Distribución y Valores Atípicos</h3>
+
+         <figure>
+            <img src="Graficos_calidad-aire/boxplot.png" alt="Distribución y valores atípicos">
+            <figcaption>Fig 2. Nos indica si la contaminacion es constante o hay valores atípicos (outliders) .</figcaption>
+        </figure>
+        
+
+        <h3>3.4 Tendencia Temporal (Series de Tiempo)</h3>
+        <figure>
+            <img src="Graficos_calidad-aire/tendencias_series.png" alt="Tendencia Temporal">
+            <figcaption>Fig 3. Evolución temporal de la calidad del aire (2015-2025).</figcaption>
+        </figure>
+        <h3>3.5 Correlación entre Contaminates</h3>
+        <figure>
+            <img src="Graficos_calidad-aire/scaterplot.png" alt="Correlación de contaminates">
+            <figcaption>Fig 4.Nos dice si exsite relacion entre el PM10(partículas gruesas) y PM2.5 (partículas finas).</figcaption>
+        </figure>
+
+        <h3>3.6 Matriz de Correlación</h3>
+
+        <figure>
+            <img src="Graficos_calidad-aire/heatmap.png" alt="Matríz de correlación">
+            <figcaption>Fig 5.Nos dice matemáticamente que variables esta relacionadas ( valor cercano a 0 : No hay correlación) , (valor cercano a 1: si hay correlacion)).</figcaption>
+        </figure>
+        <h3>3.7 Análisis de ciclo diario</h3>
+        <figure>
+            <img src="Graficos_calidad-aire/boxplot_horas.png" alt="Ciclo Diario">
+            <figcaption>Fig 3. Ciclo diario. Nótese el pico a las 7-8 AM por tráfico vehicular.</figcaption>
+        </figure>
+
+        <h2>4. Estadística Inferencial y Normativa</h2>
+        <p>
+            En esta sección, evaluamos si las concentraciones de PM2.5 registradas por las estaciones de monitoreo cumplen con los <strong>Estándares de Calidad Ambiental (ECA) para Aire</strong> vigentes en Perú (<strong>D.S. N° 003-2017-MINAM</strong>).
+        </p>
+        
+        <p>Los límites establecidos para proteger la salud pública son:</p>
+        <ul>
+            <li><strong>Promedio Anual:</strong> 25 µg/m³</li>
+            <li><strong>Promedio de 24 horas:</strong> 50 µg/m³</li>
+        </ul>
+
+        <p>
+            Además, aplicamos un <strong>Análisis de Varianza (ANOVA)</strong> para determinar estadísticamente si existen diferencias significativas en la contaminación entre los distintos distritos monitoreados.
+        </p>
+
+        <div class="jupyter-output">
+            <table class="dataframe">
+                <thead>
+                    <tr>
+                        <th>Ranking</th>
+                        <th>Estación</th>
+                        <th>Promedio</th>
+                        <th>Límite ECA</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>SANTA ANITA</td>
+                        <td>35.52</td>
+                        <td>25.0</td>
+                        <td><span class="badge b-fail">NO CUMPLE</span></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>S.J. LURIGANCHO</td>
+                        <td>31.26</td>
+                        <td>25.0</td>
+                        <td><span class="badge b-fail">NO CUMPLE</span></td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>CARABAYLLO</td>
+                        <td>30.14</td>
+                        <td>25.0</td>
+                        <td><span class="badge b-fail">NO CUMPLE</span></td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>VILLA MARÍA</td>
+                        <td>24.56</td>
+                        <td>25.0</td>
+                        <td><span class="badge b-pass">CUMPLE</span></td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>SAN BORJA</td>
+                        <td>17.58</td>
+                        <td>25.0</td>
+                        <td><span class="badge b-pass">CUMPLE</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="code-window">
+            <div class="code-header">
+                <div class="header-left">
+                    <div class="dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                    <span class="filename">2_analisis_anova.py</span>
+                </div>
+                <button class="copy-btn"><i class="far fa-copy"></i> Copiar</button>
+            </div>
+            <pre><code><span class="keyword">from</span> scipy <span class="keyword">import</span> stats
+
+<span class="comment"># ANOVA de un factor: Comparar medias entre distritos</span>
+<span class="variable">f_stat</span>, <span class="variable">p_val</span> = stats.<span class="function">f_oneway</span>(*<span class="variable">datos_por_estacion</span>)
+
+<span class="function">print</span>(<span class="string">f"Estadístico F: {f_stat:.2f}"</span>)
+<span class="function">print</span>(<span class="string">f"P-Valor: {p_val:.2e}"</span>)</code></pre>
+        </div>
+
+        <div class="jupyter-output">
+            <div class="output-text">Estadístico F: 142.58
+P-Valor: 2.14e-85</div>
+        </div>
+
+        <h3>4.1 Interpretación de la Prueba ANOVA</h3>
+        
+        <p><strong>Hipótesis Planteadas:</strong></p>
+        <ul>
+            <li>
+                <strong>H<sub>0</sub> (Nula):</strong> El promedio de contaminación es igual en todas las estaciones (&mu;<sub>1</sub> = &mu;<sub>2</sub> = ... = &mu;<sub>n</sub>). La ubicación no influye.
+            </li>
+            <li>
+                <strong>H<sub>1</sub> (Alterna):</strong> Al menos una estación tiene un promedio significativamente diferente. La ubicación sí influye.
+            </li>
+        </ul>
+
+        <p>
+            <strong>Resultado:</strong><br>
+            Dado que el <strong>P-valor es menor al nivel de significancia (0.05)</strong> 
+            </p>Observando las grandes diferencias entre promedios como los 35.52 de Santa Anita vs 16.76 de Campo de Marte.
+            </p> Existe  evidencia estadística suficiente para <strong>RECHAZAR la Hipótesis Nula</strong>.
+        </p>
+
+        <h2>5. Modelamiento Predictivo con Machine Learning (Scikit-Learn)</h2>
+        <p>
+            En esta sección, implementamos un algoritmo de <strong>Regresión Lineal Simple</strong> utilizando la librería <code>scikit-learn</code>.
+        </p>
+        <p>
+            <strong>Objetivo:</strong> Crear un modelo capaz de predecir la concentración de <strong>PM2.5</strong> (Target) basándose en los niveles de <strong>PM10</strong> (Feature).
+        </p>
+
+        <div class="code-window">
+            <div class="code-header">
+                <div class="header-left">
+                    <div class="dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                    <span class="filename">3_machine_learning.py</span>
+                </div>
+                <button class="copy-btn"><i class="far fa-copy"></i> Copiar</button>
+            </div>
+            <pre><code><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> <span class="class-name">LinearRegression</span>
+<span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> mean_squared_error
+<span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+<span class="variable">modelo</span> = <span class="class-name">LinearRegression</span>()
+<span class="variable">modelo</span>.<span class="function">fit</span>(<span class="variable">X_train</span>, <span class="variable">y_train</span>)
+
+<span class="variable">y_pred</span> = <span class="variable">modelo</span>.<span class="function">predict</span>(<span class="variable">X_test</span>)
+<span class="variable">rmse</span> = np.<span class="function">sqrt</span>(<span class="function">mean_squared_error</span>(<span class="variable">y_test</span>, <span class="variable">y_pred</span>))
+
+<span class="function">print</span>(<span class="string">f"RMSE: {rmse:.2f} ug/m3"</span>)
+<span class="function">print</span>(<span class="string">f"R2 Score: {modelo.score(X_test, y_test):.4f}"</span>)</code></pre>
+        </div>
+
+        <div class="jupyter-output">
+            <div class="output-text">RMSE: 14.95 ug/m3
+R2 Score: 0.1550</div>
+        </div>
+
+        <figure>
+            <img src="Graficos_calidad-aire/regresion.png" alt="Regresión Lineal">
+            <figcaption>Fig 4. Ajuste del modelo. La alta dispersión sugiere la necesidad de variables meteorológicas.</figcaption>
+        </figure>
+
+    </main>
+
+
+    
+
+
+    <script>
+        document.querySelectorAll('.copy-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const codeBlock = button.parentElement.nextElementSibling.innerText;
+                navigator.clipboard.writeText(codeBlock).then(() => {
+                    const originalHTML = button.innerHTML;
+                    button.innerHTML = '<i class="fas fa-check"></i> Copiado';
+                    button.style.color = '#3fb950';
+                    button.style.borderColor = '#3fb950';
+                    setTimeout(() => {
+                        button.innerHTML = originalHTML;
+                        button.style.color = '#ccc';
+                        button.style.borderColor = '#444';
+                    }, 2000);
+                });
+            });
+        });
+    </script>
+
+
+
+    <h3 style="margin-top: 60px; border-bottom: 1px solid #30363d; padding-bottom: 10px; margin-bottom: 30px; color: white;">
+            
+        </h3>
+        
+        <div style="max-width: 900px; margin: 0 auto; display: block;">
+
+            <p style="margin-bottom: 40px; color: #c9d1d9; font-size: 1rem; line-height: 1.8;">
+                La evaluación del modelo de Regresión Lineal Simple arroja métricas que revelan la complejidad intrínseca de la contaminación atmosférica en Lima Metropolitana. A continuación, se detalla la interpretación fenomenológica de los resultados ($RMSE = 14.95$, $R^2 = 0.155$).
+            </p>
+
+            <div style="
+                background-color: #161b22; 
+                border-left: 5px solid #79c0ff; /* Acento Azul */
+                border-radius: 4px; 
+                padding: 30px; 
+                margin-bottom: 30px; /* Separación vertical */
+                box-shadow: 0 4px 12px rgba(0,0,0,0.3);">
+                
+                <h4 style="margin-top: 0; color: #79c0ff; font-size: 1.1rem; margin-bottom: 15px;">
+                    A. Interpretación del Coeficiente R2 (15.5%)
+                </h4>
+                
+                <p style="color: #c9d1d9; line-height: 1.7;">
+                    Un $R^2$ de 0.1550 indica que el modelo lineal basado exclusivamente en PM10 solo explica el <strong>15.5% de la varianza</strong> observada en el PM2.5.
+                </p>
+                
+                <div style="background-color: rgba(121, 192, 255, 0.1); padding: 15px; border-radius: 4px; margin-top: 15px;">
+                    <p style="color: #8b949e; margin-bottom: 0; font-size: 0.95rem; line-height: 1.6;">
+                        <strong>Implicancia Física:</strong> El PM2.5 en Lima no es una simple "sub-fracción" del polvo (PM10). El PM10 proviene de fuentes mecánicas (tierra, construcción), mientras que el PM2.5 deriva de la combustión vehicular y reacciones químicas. Al ajustar una línea recta a fenómenos de génesis distinta, el modelo sufre de <em>Subajuste (Underfitting)</em>.
+                    </p>
+                </div>
+            </div>
+
+            <div style="
+                background-color: #161b22; 
+                border-left: 5px solid #ff7b72; /* Acento Rojo */
+                border-radius: 4px; 
+                padding: 30px; 
+                margin-bottom: 30px; /* Separación vertical */
+                box-shadow: 0 4px 12px rgba(0,0,0,0.3);">
+                
+                <h4 style="margin-top: 0; color: #ff7b72; font-size: 1.1rem; margin-bottom: 15px;">
+                    B. Análisis del Error (RMSE = 14.95 µg/m³)
+                </h4>
+                
+                <p style="color: #c9d1d9; line-height: 1.7;">
+                    El Error Cuadrático Medio representa la desviación estándar de los residuos.
+                </p>
+                
+                <div style="border-left: 2px solid #ff7b72; padding-left: 15px; margin: 20px 0;">
+                    <p style="font-style: italic; color: #c9d1d9; font-size: 1rem; margin-bottom: 0;">
+                        "En el contexto normativo peruano (ECA anual = <strong>25 µg/m³</strong>), un error de casi <strong>15 µg/m³</strong> es estadísticamente crítico, representando un margen de incertidumbre del <strong>60%</strong> respecto al límite legal."
+                    </p>
+                </div>
+                
+                <p style="color: #8b949e; margin-bottom: 0; font-size: 0.95rem; line-height: 1.6;">
+                    Esto impide usar el modelo actual para fiscalización, ya que podría clasificar erróneamente días "limpios" como "contaminados".
+                </p>
+            </div>
+
+            <div style="
+                background-color: #161b22; 
+                border-left: 5px solid #d2a8ff; /* Acento Violeta */
+                border-radius: 4px; 
+                padding: 30px; 
+                margin-bottom: 40px; 
+                box-shadow: 0 4px 12px rgba(0,0,0,0.3);">
+                
+                <h4 style="margin-top: 0; color: #d2a8ff; font-size: 1.1rem; margin-bottom: 15px;">
+                    C. Conclusión: La Variable Oculta (Meteorología)
+                </h4>
+                
+                <p style="color: #c9d1d9; margin-bottom: 0; line-height: 1.7;">
+                    La baja correlación sugiere la existencia de <strong>variables de confusión</strong> no incluidas. Lima posee características únicas (humedad >90%, inversión térmica) que actúan como catalizadores. Un modelo que ignora la meteorología es "ciego" ante la dinámica real de la atmósfera limeña.
+                </p>
+            </div>
+
+            <div style="
+                border: 1px dashed #30363d; 
+                border-radius: 8px; 
+                padding: 25px; 
+                display: flex; 
+                gap: 20px; 
+                align-items: start; 
+                background-color: rgba(13, 17, 23, 0.5);">
+                
+                <div style="font-size: 1.8rem; color: #58a6ff; min-width: 40px; text-align: center;">
+                    <i class="fas fa-rocket"></i>
+                </div>
+                
+                <div>
+                    <h4 style="margin-top: 0; color: #58a6ff; margin-bottom: 10px; font-size: 1rem;">
+                        Próxima Misión: Hacia un Modelo Robusto
+                    </h4>
+                    <p style="color: #8b949e; font-size: 0.9rem; line-height: 1.6; margin-bottom: 10px;">
+                        Se propone escalar hacia <strong>Machine Learning No Paramétrico</strong> (<em>Random Forest / XGBoost</em>) integrando un dataset multivariado:
+                    </p>
+                    
+                    <ul style="margin-bottom: 0; color: #8b949e; font-size: 0.9rem; padding-left: 20px;">
+                        <li style="margin-bottom: 5px;">Variables Meteorológicas (Humedad, Temperatura, Viento).</li>
+                        <li>Variables Temporales (Hora del día, Tráfico).</li>
+                    </ul>
+
+                    <div class="resources-section">
+            <h3>Recursos del Proyecto</h3>
+            <p>Accede al notebook de Python.</p>
+            
+            <a href="https://github.com/cezarrtdr/Proyectp_Calidad_Aire_Lima" class="btn-download"><i class="fab fa-github"></i> Ver recursos</a>
+        </div>
+
+                </div>
+            </div>
+
+        </div> 
+        
+
+        <h2 style="margin-top: 60px;"></h2>
+
+        <div style="max-width: 900px; margin: 0 auto; display: block;">
+            
+            <p style="margin-bottom: 30px; color: #c9d1d9;">
+                Análisis geoespacial de las estaciones. El siguiente bloque interactivo permite explorar los datos históricos haciendo clic en cada marcador.
+            </p>
+
+            <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 50px;">
+                
+                <div style="display: flex; gap: 10px;">
+                    <div style="font-family: 'JetBrains Mono', monospace; color: #58a6ff; font-size: 0.85rem; padding-top: 5px; min-width: 50px; text-align: right;">
+                        In [6]:
+                    </div>
+                    
+                    <div class="code-window" style="width: 100%; margin-bottom: 0;">
+                        <div class="code-header">
+                            <div class="header-left">
+                                <span class="filename" style="margin-left: 0; color: #fff;">
+                                    <i class="fas fa-code"></i> generar_mapa.py
+                                </span>
+                            </div>
+                            <button class="copy-btn"><i class="far fa-copy"></i> Copiar</button>
+                        </div>
+                        <pre><code><span class="keyword">import</span> folium
+<span class="keyword">from</span> folium.plugins <span class="keyword">import</span> HeatMap
+
+<span class="comment"># Inicializar mapa centrado en Lima (Dark Mode)</span>
+<span class="variable">m</span> = folium.<span class="class-name">Map</span>(location=[-12.046, -77.042], zoom_start=<span class="number">11</span>, tiles=<span class="string">'cartodbdark_matter'</span>)
+
+<span class="comment"># Agregar capa de calor (Heatmap) con promedios PM2.5</span>
+<span class="class-name">HeatMap</span>(<span class="variable">heat_data</span>, radius=<span class="number">25</span>, blur=<span class="number">15</span>).<span class="function">add_to</span>(<span class="variable">m</span>)
+
+<span class="comment"># Mostrar mapa interactivo</span>
+<span class="variable">m</span></code></pre>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 10px;">
+                    <div style="font-family: 'JetBrains Mono', monospace; color: #ff7b72; font-size: 0.85rem; padding-top: 5px; min-width: 50px; text-align: right;">
+                        Out [6]:
+                    </div>
+
+                    <div class="jupyter-output" style="width: 100%; padding: 0; border: 1px solid #30363d; overflow: hidden;">
+                        <iframe src="Graficos_calidad-aire/mapa_interactivo.html" 
+                                style="width: 100%; height: 500px; border: none; display: block;">
+                        </iframe>
+                    </div>
+                </div>
+
+            </div>
+        </div> ```
+
+
+</body>
+</html>

@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>César Torres | GeoData Portfolio</title>
+    <meta name="description" content="Portafolio de Ingeniería Ambiental y Ciencia de Datos Geoespaciales.">
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌍</text></svg>">
+
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --accent-blue: #3b82f6;
+            --text-gray: #cbd5e1;
+            --glass-panel: rgba(0, 0, 0, 0.75);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background-color: #000;
+            color: white;
+            overflow-x: hidden;
+            font-size: 18px;
+        }
+
+        /* --- VIDEO DE FONDO --- */
+        .video-background {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+        }
+        video {
+            width: 100%; height: 100%; object-fit: cover; opacity: 0.5;
+        }
+        .overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.95) 100%);
+            z-index: 1;
+        }
+
+        /* --- NAVBAR --- */
+        nav {
+            position: fixed; top: 0; width: 100%;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 20px 80px; z-index: 100;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent);
+            backdrop-filter: blur(4px);
+            transition: 0.3s;
+        }
+        .logo { font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 1.5rem; letter-spacing: 2px; }
+        .nav-links { display: flex; gap: 40px; }
+        .nav-links a { color: white; text-decoration: none; text-transform: uppercase; font-size: 1rem; transition: 0.3s; font-weight: 700; }
+        .nav-links a:hover { color: var(--accent-blue); text-shadow: 0 0 10px var(--accent-blue); }
+        .nav-user { border: 1px solid white; padding: 8px 20px; text-transform: uppercase; font-size: 0.8rem; font-weight: bold; letter-spacing: 1px; }
+
+        /* --- HERO SECTION --- */
+        .main-wrapper {
+            position: relative; min-height: 100vh; display: flex; flex-direction: column;
+            justify-content: center; z-index: 2; padding: 0 80px;
+        }
+
+        .hero-content { margin-top: 50px; max-width: 900px; }
+        
+        h1 {
+            font-family: 'Orbitron', sans-serif; font-size: 5.5rem; line-height: 1;
+            margin-bottom: 30px; text-transform: uppercase;
+            text-shadow: 0 0 25px rgba(59, 130, 246, 0.6);
+        }
+
+        .slogan-container {
+            margin-bottom: 50px; border-left: 6px solid var(--accent-blue); padding-left: 30px;
+        }
+        .slogan-text {
+            font-family: 'Orbitron', sans-serif; font-size: 2rem; font-weight: 700; font-style: italic;
+            color: #fff; line-height: 1.4; display: block; margin-bottom: 10px;
+            text-shadow: 2px 2px 4px #000;
+        }
+        .slogan-sub {
+            font-size: 1.2rem; color: var(--accent-blue); letter-spacing: 3px;
+            text-transform: uppercase; font-weight: bold;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-blue); color: white; padding: 18px 50px;
+            border: none; font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 1.1rem;
+            text-transform: uppercase; letter-spacing: 2px; cursor: pointer;
+            transition: 0.3s; text-decoration: none; display: inline-block;
+            clip-path: polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+        }
+        .btn-primary:hover { background-color: #60a5fa; transform: scale(1.05); }
+
+        .cards-container {
+            display: flex; gap: 30px; margin-top: 60px; flex-wrap: wrap;
+        }
+        .info-card {
+            background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1); width: 280px; padding: 25px; text-align: center; transition: 0.3s;
+        }
+        .info-card:hover { border-color: var(--accent-blue); background: rgba(0, 0, 0, 0.85); transform: translateY(-8px); }
+        .card-icon { font-size: 2.5rem; color: #60a5fa; margin-bottom: 15px; }
+        .card-title { font-family: 'Orbitron'; font-size: 1.2rem; margin-bottom: 5px; text-transform: uppercase; font-weight: bold; }
+        .card-data { font-family: 'Rajdhani'; font-size: 1.5rem; font-weight: 700; color: white; }
+        .card-desc { font-size: 0.85rem; color: var(--text-gray); text-transform: uppercase; letter-spacing: 1px; }
+
+        /* --- PERFIL --- */
+        .profile-section {
+            min-height: 85vh; display: flex; align-items: center; justify-content: center;
+            position: relative; z-index: 10; padding: 80px;
+            background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.85) 40%, transparent 100%);
+        }
+        .profile-wrapper { max-width: 1200px; width: 100%; display: flex; gap: 60px; align-items: flex-start; }
+        .profile-text { flex: 1; }
+
+        /* Estilos para el encabezado con foto y nombre */
+        .profile-header { display: flex; align-items: center; gap: 30px; margin-bottom: 30px; }
+        
+        .profile-photo {
+            width: 100px; height: 100px; 
+            border-radius: 50%; 
+            object-fit: cover;
+            border: 2px solid var(--accent-blue);
+            transition: 0.4s ease;
+            cursor: pointer;
+            background-color: #1e293b; /* Fondo si no hay foto */
+        }
+        /* Efecto al tocar la foto */
+        .profile-photo:hover { 
+            transform: scale(1.3); 
+            box-shadow: 0 0 25px var(--accent-blue);
+            z-index: 10;
+        }
+
+        .big-name { font-family: 'Orbitron', sans-serif; font-size: 4rem; color: white; line-height: 1; }
+        .highlight-blue { color: var(--accent-blue); }
+        .big-bio { font-size: 1.5rem; color: #e2e8f0; line-height: 1.7; text-align: justify; font-weight: 500; text-shadow: 1px 1px 2px black; margin-bottom: 30px; }
+
+        .social-buttons { display: flex; gap: 20px; margin-top: 30px; align-items: center; }
+        .social-btn {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 50px; height: 50px; border-radius: 50%;
+            border: 2px solid var(--accent-blue); color: var(--accent-blue);
+            font-size: 1.4rem; transition: 0.3s; text-decoration: none;
+        }
+        .social-btn:hover { background: var(--accent-blue); color: white; transform: translateY(-5px); box-shadow: 0 0 15px var(--accent-blue); }
+        
+        .contact-phone {
+            font-family: 'Orbitron', sans-serif; font-size: 1.1rem; color: #cbd5e1; margin-left: 20px;
+            display: flex; align-items: center; gap: 10px;
+        }
+
+        /* --- MISIONES (GRID 3x3) --- */
+        .missions-section {
+            min-height: 100vh; padding: 120px 80px; position: relative; z-index: 10;
+            background: rgba(2, 6, 12, 0.92); border-top: 1px solid rgba(59, 130, 246, 0.2);
+        }
+        .section-header { margin-bottom: 80px; text-align: center; }
+        .section-title { font-family: 'Orbitron'; font-size: 3.5rem; color: var(--accent-blue); letter-spacing: 4px; text-shadow: 0 0 15px var(--accent-blue); }
+        
+        .missions-grid {
+            display: grid;
+            /* AQUÍ ESTÁ EL CAMBIO: Forzamos 3 columnas en pantallas grandes */
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 40px;
+        }
+
+        .mission-card {
+            background: rgba(255, 255, 255, 0.03); 
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: 0.4s; position: relative;
+            display: flex; flex-direction: column;
+            overflow: hidden;
+            height: 100%; /* Para que todas tengan misma altura */
+        }
+        .mission-card:hover {
+            border-color: var(--accent-blue); 
+            background: rgba(255, 255, 255, 0.07); 
+            transform: translateY(-10px);
+        }
+
+        /* Imagen de Portada en Misiones */
+        .mission-img {
+            width: 100%; height: 220px; object-fit: cover;
+            background-color: #1e293b; /* Color gris de espera */
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            transition: 0.4s;
+        }
+        .mission-card:hover .mission-img { filter: brightness(1.2); }
+
+        .mission-content { padding: 30px; display: flex; flex-direction: column; flex-grow: 1; }
+
+        .mission-tag { color: var(--accent-blue); font-weight: 800; letter-spacing: 2px; font-size: 0.85rem; font-family: 'Orbitron'; margin-bottom: 10px; }
+        .mission-title { font-family: 'Orbitron'; font-size: 1.5rem; margin-bottom: 15px; line-height: 1.2; font-weight: bold; }
+        .mission-desc { font-size: 1rem; color: #cbd5e1; line-height: 1.6; margin-bottom: 25px; flex-grow: 1; }
+        
+        .mission-btn { 
+            color: white; text-decoration: none; border-bottom: 2px solid var(--accent-blue); 
+            padding-bottom: 5px; font-weight: 800; font-size: 0.9rem; align-self: flex-start;
+            transition: 0.3s; margin-top: auto; /* Empuja el botón al fondo */
+        }
+        .mission-btn:hover { color: var(--accent-blue); padding-right: 10px; }
+
+        /* Scroll Reveal */
+        .reveal { opacity: 0; transform: translateY(60px); transition: all 1.2s ease; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* RESPONSIVE: Adaptación a celular y tablet */
+        @media (max-width: 1100px) {
+            .missions-grid { grid-template-columns: repeat(2, 1fr); } /* Tablet: 2 columnas */
+        }
+        @media (max-width: 768px) {
+            .missions-grid { grid-template-columns: 1fr; } /* Móvil: 1 columna */
+            h1 { font-size: 3.5rem; }
+            .big-name { font-size: 3rem; }
+            .slogan-text { font-size: 1.5rem; }
+            .hero-content, .profile-section, .missions-section { padding: 40px 20px; }
+            .nav-links { display: none; }
+            .cards-container { flex-wrap: wrap; padding: 0 20px; }
+            .info-card { width: 100%; }
+            .profile-wrapper { flex-direction: column; }
+            .profile-header { flex-direction: column; text-align: center; }
+            .social-buttons { justify-content: center; flex-wrap: wrap; }
+            .contact-phone { margin-left: 0; margin-top: 10px; width: 100%; justify-content: center; }
+        }
+
+        /* --- ACTUALIZACIÓN CSS PERFIL --- */
+        
+        /* 1. Ajustamos el contenedor del encabezado */
+        .profile-header { 
+            display: flex; 
+            align-items: center; 
+            gap: 30px; 
+            margin-bottom: 30px; 
+        }
+        
+        /* 2. Nuevo contenedor para apilar nombre y correo verticalmente */
+        .header-info {
+            display: flex;
+            flex-direction: column;
+            gap: 5px; /* Espacio entre nombre y correo */
+        }
+
+        /* 3. Quitamos el margen inferior gigante que tenía el nombre antes */
+        .big-name { 
+            font-family: 'Orbitron', sans-serif; 
+            font-size: 4rem; 
+            color: white; 
+            line-height: 1; 
+            margin-bottom: 0; /* Importante: margen a 0 */
+        }
+
+        /* 4. Estilo para el nuevo correo en el encabezado */
+        .header-email {
+            font-family: 'Rajdhani', sans-serif; /* Fuente legible */
+            font-size: 1.3rem; /* Tamaño grande y claro */
+            color: var(--text-gray);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px; /* Espacio entre icono y texto */
+            transition: 0.3s;
+            font-weight: 500;
+        }
+
+        .header-email i {
+            color: var(--accent-blue); /* Icono azul */
+        }
+
+        .header-email:hover {
+            color: white; /* Se vuelve blanco al pasar el mouse */
+            text-shadow: 0 0 10px var(--accent-blue);
+        }
+
+        /* Ajuste responsive para celulares */
+        @media (max-width: 768px) {
+            .profile-header { flex-direction: column; text-align: center; }
+            .header-info { align-items: center; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="video-background">
+        <video autoplay loop muted playsinline>
+            <source src="tierra_rotacion.mp4" type="video/mp4">
+        </video>
+        <div class="overlay"></div>
+    </div>
+
+    <div class="main-wrapper" id="home">
+        
+        <nav>
+            <div class="logo"><i class="fas fa-globe"></i> EcoLogic Data</div>
+            <div class="nav-links">
+                <a href="#about">Perfil</a>
+                <a href="#projects">Misiones</a>
+                <a href="mailto:tuemail@ejemplo.com">Contacto</a>
+            </div>
+            <div class="nav-user">SYSTEM: ONLINE</div>
+        </nav>
+
+        <div class="hero-content">
+            <h1>EcoLogic<br>Data</h1>
+            <div class="slogan-container">
+                <span class="slogan-text">"TECNOLOGÍA Y DATOS AL SERVICIO DEL AMBIENTE"</span>
+                <span class="slogan-sub">FUTURO INGENIERO AMBIENTAL | GIS & DATA SCIENTIST</span>
+            </div>
+            <a href="#projects" class="btn-primary">Iniciar Misión</a>
+        </div>
+
+        <div class="cards-container">
+            <div class="info-card">
+                <div class="card-icon"><i class="fas fa-satellite"></i></div>
+                <div class="card-title">GIS</div>
+                <div class="card-data">ArcGIS / QGIS</div>
+                <div class="card-desc">Análisis Espacial Avanzado</div>
+            </div>
+            <div class="info-card">
+                <div class="card-icon"><i class="fas fa-code"></i></div>
+                <div class="card-title">DEV</div>
+                <div class="card-data">Python</div>
+                <div class="card-desc">Automatización de Datos</div>
+            </div>
+            <div class="info-card">
+                <div class="card-icon"><i class="fas fa-globe-americas"></i></div>
+                <div class="card-title">REMOTE</div>
+                <div class="card-data">Sentinel-2</div>
+                <div class="card-desc">Procesamiento de Imágenes</div>
+            </div>
+        </div>
+    </div>
+
+    <section id="about" class="profile-section">
+        <div class="profile-wrapper reveal">
+            <div class="profile-text">
+                
+                <div class="profile-header">
+                    <img src="Portadas/Foto_perfil.jpeg" alt="César Torres" class="profile-photo">
+                    
+                    <div class="header-info">
+                        <h2 class="big-name">CÉSAR<br><span class="highlight-blue">TORRES</span></h2>
+                        
+                        <a href="mailto:cezarrtdr@gmail.com" class="header-email">
+                            <i class="fas fa-envelope"></i> cezarrtdr@gmail.com
+                        </a>
+                    </div>
+                </div>
+                
+                <p class="big-bio">
+                    Soy un estudiante de <strong>ingeniería ambiental</strong> apasionado por la tecnología y el <strong>análisis de datos</strong>. Mi enfoque se centra en transformar datos complejos en información procesable y valiosa para industrias críticas.
+                    <br><br>
+                    En el portafolio pódras encontrar algoritmos de automatización con <span class="highlight-blue">Python</span> para optimizar la gestión de recursos naturales, monitorear impactos ambientales y desarrollar modelos predictivos.
+                    <br><br>
+                    Todo lo encontrado aquí fue aprendido de manera autodidacta potenciando la carrera universitaria con conocimiento adquirido en cursos, internet y repotenciado con el uso de Inteligencia Artificial.
+                </p>
+
+                <div class="social-buttons">
+                    <a href="https://www.linkedin.com/in/cesar-torres-757bb0356/" target="_blank" class="social-btn" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://github.com/cezarrtdr" target="_blank" class="social-btn" title="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="mailto:cezarrtdr@gmail.com" class="social-btn" title="Email"><i class="fas fa-envelope"></i></a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="missions-section">
+        <div class="section-header reveal">
+            <h2 class="section-title">REGISTRO DE MISIONES</h2>
+            <p style="color: #94a3b8; letter-spacing: 3px; font-weight: bold; margin-top: 10px;">PROYECTOS DESTACADOS</p>
+        </div>
+
+        <div class="missions-grid">
+            
+
+            <article class="mission-card reveal">
+                <img src="Portadas/Teledeteccion_rupa.jpg" class="mission-img" alt="Selva">
+                <div class="mission-content">
+                    <span class="mission-tag">// ELEDETECCIÓN Y ANÁLISIS DE TERRITOIO</span>
+                    <h3 class="mission-title">Teledeteccion: Distrito Rupa-Rupa</h3>
+                    <p class="mission-desc">Generación de mapas temáticos para el análisis de cobertura y uso de suelo en la selva alta.</p>
+                    <a href="proyecto_rupa_rupa.html" class="mission-btn">VER MAPAS ></a>
+                </div>
+            </article>
+
+            <article class="mission-card reveal">
+                <img src="Portadas/arcgis_cuencas.jpg" class="mission-img" alt="Hidrología">
+                <div class="mission-content">
+                    <span class="mission-tag">// AUTOMATIZACIÓN GIS</span>
+                    <h3 class="mission-title">Automatización Hidrológica con ArcPy</h3>
+                    <p class="mission-desc">Script de Python que reduce el tiempo de delimitación de cuencas y redes de drenaje de 3 horas a 5 minutos.</p>
+                    <a href="proyecto_manejo_cuencas.html" class="mission-btn">REVISAR SCRIPT ></a>
+                </div>
+            </article>
+
+            <article class="mission-card reveal">
+                <img src="Portadas/Civil_planos.jpg" class="mission-img" alt="Planos">
+                <div class="mission-content">
+                    <span class="mission-tag">// INTEGRACIÓN CAD-GIS</span>
+                    <h3 class="mission-title">Poligonización Automática de Parcelas</h3>
+                    <p class="mission-desc">Flujo de trabajo automatizado entre Civil 3D y ArcGIS para procesamiento masivo de coordenadas.</p>
+                    <a href="proyecto_civil_GIS.html" class="mission-btn">REVISAR SCRIPT ></a>
+                </div>
+            </article>
+
+            <article class="mission-card reveal">
+                <img src="Portadas/Calidad_aire.jpg" class="mission-img" alt="Ciudad">
+                <div class="mission-content">
+                    <span class="mission-tag">// CIENCIA DE DATOS</span>
+                    <h3 class="mission-title">Análisis de Calidad del Aire en Lima</h3>
+                    <p class="mission-desc">Evaluación estadística y exploratoria de contaminantes atmosféricos utilizando librerías de Python.</p>
+                    <a href="proyecto_calidad_de_aire.html" class="mission-btn">REVISAR SCRIPT ></a>
+                </div>
+            </article>
+
+            <article class="mission-card reveal">
+                <img src="Portadas/Teledeteccion_mina.jpg" class="mission-img" alt="Minería">
+                
+                <div class="mission-content">
+                    <span class="mission-tag">// TELEDETECCIÓN TÉRMICA</span>
+                    <h3 class="mission-title">Monitoreo Térmico: Minera Las Bambas</h3>
+                    <p class="mission-desc">Análisis de variación de temperatura superficial (LST) 2015-2024 cuantificando el impacto térmico de la operación minera.</p>
+                    <a href="proyecto_mineria.html" class="mission-btn">LEER INFORME ></a>
+                </div>
+            </article>
+
+        </div>
+    </section>
+
+    <script>
+        window.addEventListener('scroll', reveal);
+        function reveal(){
+            var reveals = document.querySelectorAll('.reveal');
+            for(var i = 0; i < reveals.length; i++){
+                var windowheight = window.innerHeight;
+                var revealtop = reveals[i].getBoundingClientRect().top;
+                var revealpoint = 150;
+                if(revealtop < windowheight - revealpoint){
+                    reveals[i].classList.add('active');
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>

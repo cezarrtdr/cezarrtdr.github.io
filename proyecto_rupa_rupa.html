@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagnóstico Ambiental Rupa-Rupa | Portafolio Técnico</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* ESTILO: GITHUB DARK MODE */
+        :root {
+            --bg-github: #0d1117;
+            --text-primary: #c9d1d9;
+            --text-secondary: #8b949e;
+            --accent-blue: #58a6ff;
+            --accent-green: #2ea043;
+            --border-color: #30363d;
+            --code-bg: #161b22;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-github);
+            color: var(--text-primary);
+            font-family: 'Merriweather', serif; 
+            line-height: 1.9;
+            font-size: 18px;
+            padding: 40px 20px;
+        }
+
+        /* Enlace de volver */
+        .back-link {
+            text-decoration: none; color: var(--text-secondary);
+            font-family: 'Inter', sans-serif; font-size: 0.9rem;
+            display: inline-flex; align-items: center; gap: 8px;
+            margin-bottom: 40px; transition: 0.2s;
+        }
+        .back-link:hover { color: var(--accent-blue); }
+
+        /* Contenedor Central */
+        .paper-container { max-width: 960px; margin: 0 auto 100px auto; }
+
+        /* Tipografía */
+        h1, h2, h3, h4 {
+            font-family: 'Inter', sans-serif; color: #ffffff;
+            font-weight: 700; line-height: 1.3;
+        }
+
+        header { border-bottom: 1px solid var(--border-color); padding-bottom: 30px; margin-bottom: 40px; }
+        h1 { font-size: 2.5rem; margin-bottom: 20px; letter-spacing: -0.5px; }
+
+        .meta-data {
+            font-family: 'Inter', sans-serif; color: var(--text-secondary);
+            font-size: 0.95rem; display: flex; flex-wrap: wrap; gap: 25px;
+        }
+        .meta-data span { display: flex; align-items: center; gap: 8px; }
+        .meta-data i { color: var(--accent-blue); }
+
+        h2 { font-size: 1.8rem; margin-top: 60px; margin-bottom: 25px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; }
+        h3 { font-size: 1.4rem; margin-top: 40px; margin-bottom: 15px; color: var(--accent-blue); }
+        
+        p { margin-bottom: 25px; text-align: justify; }
+        strong { color: white; font-weight: 700; }
+        
+        ul { margin-bottom: 30px; padding-left: 25px; }
+        li { margin-bottom: 12px; }
+
+        /* Estilo para Fórmulas */
+        .formula-box {
+            background-color: var(--code-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 20px;
+            margin: 25px 0;
+            font-family: 'Courier New', monospace;
+            text-align: center;
+            color: var(--accent-green);
+            font-size: 1.1rem;
+        }
+
+        /* Imágenes */
+        figure { margin: 60px 0; background-color: #010409; padding: 10px; border-radius: 8px; border: 1px solid var(--border-color); }
+        img { width: 100%; height: auto; display: block; border-radius: 4px; }
+        figcaption {
+            text-align: center; font-family: 'Inter', sans-serif; font-size: 0.9rem;
+            color: var(--text-secondary); margin-top: 15px; font-style: italic;
+        }
+
+        /* Sección de Descargas */
+        .resources-section { margin-top: 80px; padding-top: 40px; border-top: 1px solid var(--border-color); }
+        .btn-download {
+            display: inline-flex; align-items: center; gap: 10px;
+            background-color: #21262d; color: var(--accent-blue);
+            padding: 10px 20px; text-decoration: none;
+            font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.95rem;
+            border-radius: 6px; border: 1px solid var(--border-color);
+            transition: 0.2s; margin-right: 15px; margin-bottom: 10px;
+        }
+        .btn-download:hover { background-color: #30363d; border-color: #8b949e; }
+    </style>
+</head>
+<body>
+
+    <main class="paper-container">
+        
+        <a href="index.html" class="back-link">
+            <i class="fas fa-arrow-left"></i> Volver al Portafolio
+        </a>
+
+        <header>
+            <h1>TELEDETECCIÓN Y ANÁLISI DE DATOS APLICADOS A LA GESTIÓN DEL TERRITORIO</h1>
+            <p style="font-family: 'Inter', sans-serif; font-size: 1.2rem; color: var(--text-secondary);">
+                Diagnóstico Ambiental Integral del Distrito de Rupa-Rupa mediante Landsat 9 y Python.
+            </p>
+            
+            <div class="meta-data">
+                <span><i class="fas fa-user-circle"></i> César Torres (Ingeniero Ambiental)</span>
+                <span><i class="far fa-calendar-alt"></i> Enero 2026</span>
+                <span><i class="fas fa-satellite"></i> GIS & Remote Sensing</span>
+                <span><i class="fab fa-python"></i> Python ArcPy</span>
+            </div>
+        </header>
+
+        <h2>1. Introducción y Contexto</h2>
+        <p>
+            El distrito de Rupa-Rupa (Tingo María) constituye un eje dinámico en la Amazonía Peruana, donde la expansión de la frontera agrícola y urbana ejerce una presión constante sobre los servicios ecosistémicos. La gestión eficiente de este territorio no puede basarse únicamente en la observación visual; requiere <strong>datos cuantificables y modelos espaciales precisos</strong>.
+        </p>
+        <p>
+            En este proyecto, he desarrollado un flujo de trabajo automatizado integrando <strong>ArcGIS Pro</strong> y scripting en <strong>Python</strong> para procesar imágenes satelitales multitemporales. El objetivo es revelar las dinámicas "invisibles" del territorio: desde la temperatura radiante del suelo hasta la migración geomorfológica del Río Huallaga.
+        </p>
+
+        <h2>2. Stack Tecnológico y Metodología</h2>
+        <p>
+            Para garantizar la precisión técnica del diagnóstico, se implementó el siguiente pipeline de procesamiento de datos:
+        </p>
+        <ul>
+            <li><strong>Adquisición de Datos:</strong> Imágenes satelitales Landsat 8 OLI/TIRS (2015) y Landsat 9 (2025) obtenidas del USGS Earth Explorer, corregidas atmosféricamente a Nivel 2.</li>
+            <li><strong>Procesamiento Computacional:</strong> Uso de la librería <code>arcpy</code> y <code>numpy</code> para el cálculo matricial de índices espectrales (NDVI, MNDWI).</li>
+            <li><strong>Análisis Espacial Avanzado:</strong> Modelamiento de Densidad de Kernel (Heatmaps) para deforestación y algoritmos de transferencia radiativa para temperatura superficial (LST).</li>
+        </ul>
+
+        <h2>3. Resultados: Diagnóstico Cartográfico</h2>
+
+        <h3>3.1. Estado de la Cobertura Vegetal (NDVI)</h3>
+        <p>
+            Utilizando el Índice de Vegetación de Diferencia Normalizada (NDVI), se clasificó la salud de la biomasa. La fórmula aplicada evalúa la reflectancia en el Infrarrojo Cercano (NIR) y el Rojo visible.
+        </p>
+        <div class="formula-box">
+            NDVI = (NIR - Red) / (NIR + Red)
+        </div>
+        <figure>
+            <img src="Anlisis_rupa/covertura_vegetal.jpg" alt="Mapa de Cobertura Vegetal NDVI Rupa Rupa">
+            <figcaption>Figura 1: Clasificación de cobertura vegetal. Se evidencia la fragmentación del bosque continuo en las zonas de llanura aluvial.</figcaption>
+        </figure>
+
+        <h3>3.2. Modelamiento de Focos de Deforestación (Hotspots)</h3>
+        <p>
+            Más allá de identificar polígonos de tala, se aplicó un algoritmo de <strong>Densidad de Kernel (Kernel Density Estimation)</strong> para identificar zonas de alta concentración de pérdida de bosque. El análisis bitemporal (2015-2025) revela patrones agresivos alineados a los ejes viales.
+        </p>
+        <figure>
+            <img src="Anlisis_rupa/Mapa_deforestacion_rupa_rupa.jpg" alt="Mapa de Calor de Deforestación estilo Firefly">
+            <figcaption>Figura 2: Mapa de calor (Heatmap) mostrando la densidad de deforestación. El gráfico circular cuantifica las hectáreas perdidas.</figcaption>
+        </figure>
+
+        <h3>3.3. Distribución de Temperatura Superficial (LST)</h3>
+        <p>
+            Se procesó la Banda Térmica 10 del sensor TIRS-2 (Landsat 9). El cálculo implicó la conversión de Niveles Digitales a Radiancia Espectral y posteriormente a Temperatura de Brillo usando la Ley de Planck invertida:
+        </p>
+        <div class="formula-box">
+            LST = K2 / ln( (K1 / Lλ) + 1 ) - 273.15
+        </div>
+        <p>
+            <strong>Interpretación:</strong> Se identificó claramente el fenómeno de "Isla de Calor Urbano" en el casco central de Tingo María, registrando temperaturas superficiales superiores a <strong>28°C</strong>, en contraste con los ~20°C del bosque circundante.
+        </p>
+        <figure>
+            <img src="Anlisis_rupa/Mapa_Distribucion_Termica.jpg" alt="Mapa de Temperatura Superficial LST">
+            <figcaption>Figura 3: Distribución térmica y validación estadística mediante histograma de frecuencias.</figcaption>
+        </figure>
+
+        <h3>3.4. Dinámica Fluvial del Río Huallaga</h3>
+        <p>
+            Mediante el índice MNDWI (Modified Normalized Difference Water Index) y técnicas de detección de cambios vectorial, se mapeó la migración del cauce.
+        </p>
+        <div class="formula-box">
+            MNDWI = (Green - SWIR) / (Green + SWIR)
+        </div>
+        <p>
+            El análisis revela zonas críticas de <strong>erosión lateral (Rojo)</strong> que amenazan áreas agrícolas y urbanas cerca del aeropuerto, compensadas por zonas de sedimentación (Cian).
+        </p>
+        <figure>
+            <img src="Anlisis_rupa/Dinamica_fluvial.jpg" alt="Mapa de Dinámica Fluvial Erosión Sedimentación">
+            <figcaption>Figura 4: Análisis de erosión y sedimentación del Río Huallaga (2015-2025).</figcaption>
+        </figure>
+
+        <h3>3.5. Síntesis de Riesgo y Susceptibilidad</h3>
+        <p>
+            Integrando las variables anteriores (pérdida de cobertura, proximidad al río erosionable y pendientes derivadas del DEM), se generó un mapa síntesis de peligros. Las zonas rojas indican áreas de alta susceptibilidad a inundaciones y movimientos en masa.
+        </p>
+        <figure>
+            <img src="Anlisis_rupa/geeodinamica_riesgos.jpg" alt="Mapa de Peligros y Riesgos">
+            <figcaption>Figura 5: Zonificación de peligros físicos en el distrito.</figcaption>
+        </figure>
+
+        <h2>4. Conclusiones Generales</h2>
+        <p>
+            La integración de la programación con los Sistemas de Información Geográfica permite pasar del monitoreo pasivo a la inteligencia territorial. Este estudio demuestra que:
+        </p>
+        <ul>
+            <li>Existe una correlación directa espacial entre la pérdida de cobertura vegetal y el aumento de la temperatura superficial urbana (+6°C de diferencia).</li>
+            <li>La dinámica del Río Huallaga presenta un comportamiento migratorio activo que requiere la actualización urgente de fajas marginales basada en datos históricos.</li>
+            <li>Las herramientas de <strong>Data Analys (Python)</strong> junto con las de <strong>GIS</strong> aplicadas a la ingeniería ambiental reducen la incertidumbre en la toma de decisiones para la planificación urbana y conservación.</li>
+        </ul>
+
+        <div class="resources-section">
+            <h3>Recursos del Proyecto</h3>
+            <p>Accede a los scripts de Python utilizados y a los layouts en alta resolución.</p>
+            
+            <a href="https://github.com/cezarrtdr/Proyecto_Rupa_Rupa.git" class="btn-download"><i class="fab fa-github"></i> Ver recursos</a>
+        </div>
+
+    </main>
+
+</body>
+</html>
