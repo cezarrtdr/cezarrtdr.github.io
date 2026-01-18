@@ -237,63 +237,85 @@
         .reveal { opacity: 0; transform: translateY(40px); transition: all 1s ease; }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
-        /* --- RESPONSIVE OPTIMIZADO PARA MÓVIL (CELULARES) --- */
+        /* --- RESPONSIVE OPTIMIZADO PARA MÓVIL (CELULARES) - VERSIÓN NATIVA FINAL --- */
         @media (max-width: 1100px) {
             .missions-grid { grid-template-columns: repeat(2, 1fr); }
             h1 { font-size: 3rem; }
         }
 
         @media (max-width: 768px) {
-            /* 1. BARRA SUPERIOR: Fondo negro sólido para que se lea perfecto */
-            nav { 
-                padding: 10px 0; 
-                height: 70px; 
-                justify-content: center; /* Centramos el logo para que luzca mejor */
-                background: #000; /* Fondo negro total en celular */
-                box-shadow: 0 4px 10px rgba(59, 130, 246, 0.2); /* Brillo azul sutil abajo */
+            /* 1. BARRA SUPERIOR NATIVA (Sin huecos) */
+            nav {
+                padding: 0; /* Sin relleno extra */
+                height: 60px; /* Altura estándar de App header */
+                justify-content: center;
+                background: #000; /* Negro sólido */
+                /* Sombra más sutil y moderna */
+                box-shadow: 0 2px 10px rgba(59, 130, 246, 0.15);
+                top: 0; /* Aseguramos que pegue arriba */
             }
-            
-            .nav-links { display: none; }
-            .nav-user { display: none; }
 
-            /* Logo más grande y centrado */
-            .logo { 
-                font-size: 1.5rem; 
-                width: 100%; text-align: center; /* Asegura centrado total */
-            } 
+            .nav-links, .nav-user { display: none; }
 
-            /* 2. CONTENIDO PRINCIPAL: Empujamos todo abajo para que no se esconda */
-            .main-wrapper { 
-                padding: 0 20px; 
-                text-align: center; 
-                /* ESTA ES LA CLAVE: Agregamos margen arriba para separar el título de la barra */
-                padding-top: 100px; 
+            /* Logo compacto y centrado */
+            .logo {
+                font-size: 1.3rem;
+                width: 100%; text-align: center;
+                letter-spacing: 1px;
             }
-            
-            .hero-content { 
-                margin-top: 0; /* Ya usamos padding arriba, así que esto en 0 */
-                width: 100%; display: flex; flex-direction: column; align-items: center; 
-            }
-            
-            .slogan-container { 
-                border-left: none; border-bottom: 3px solid var(--accent-blue); 
-                padding-left: 0; padding-bottom: 20px; margin-bottom: 30px; 
-            }
-            
-            h1 { font-size: 2.8rem; margin-bottom: 15px; }
-            .slogan-text { font-size: 1.3rem; }
-            
-            .cards-container { justify-content: center; gap: 15px; margin-top: 30px; }
-            .info-card { width: 100%; max-width: 300px; padding: 15px; }
 
-            .profile-section { padding: 40px 20px; }
-            .profile-header { flex-direction: column; text-align: center; gap: 15px; }
-            .header-info { align-items: center; }
+            /* 2. CONTENIDO PRINCIPAL (Ajuste de espacios "App-feel") */
+            .main-wrapper {
+                padding: 0 20px;
+                text-align: center;
+                /* Quitamos el padding-top anterior que causaba el hueco */
+                /* Aseguramos que el contenido empiece desde arriba */
+                justify-content: flex-start;
+            }
+
+            .hero-content {
+                /* Margen superior para separarse de la barra de 60px + aire */
+                margin-top: 85px;
+                width: 100%; display: flex; flex-direction: column; align-items: center;
+                /* Espacio más compacto entre elementos */
+                gap: 25px;
+            }
+
+            h1 {
+                font-size: 2.6rem;
+                margin-bottom: 0; /* Controlamos el espacio con el 'gap' del padre */
+            }
+
+            .slogan-container {
+                border-left: none;
+                /* Línea inferior más fina y elegante */
+                border-bottom: 2px solid var(--accent-blue);
+                padding-left: 0; padding-bottom: 15px; margin-bottom: 0;
+                width: 100%; max-width: 400px; /* Que no se estire al infinito */
+            }
+            .slogan-text { font-size: 1.2rem; }
+            .slogan-sub { font-size: 0.85rem; letter-spacing: 1px; }
+
+            /* BOTÓN NATIVO (Ancho completo) */
+            .btn-primary {
+                width: 100%; /* Ocupa todo el ancho disponible */
+                max-width: 320px; /* Pero con un límite para tablets */
+                padding: 16px 0; /* Más alto para dedo */
+                font-size: 1.1rem;
+            }
+
+            /* TARJETAS COMPACTAS */
+            .cards-container { justify-content: center; gap: 12px; margin-top: 15px; }
+            .info-card { width: 100%; max-width: 320px; padding: 18px; background: rgba(0, 0, 0, 0.5); }
+
+            /* SECCIONES INTERNAS */
+            .profile-section { padding: 50px 20px; }
+            .profile-header { flex-direction: column; text-align: center; gap: 20px; }
             .big-name { font-size: 2.2rem; }
-            .big-bio { font-size: 1.1rem; text-align: left; }
+            .big-bio { font-size: 1.05rem; text-align: left; line-height: 1.5; }
 
-            .missions-section { padding: 60px 20px; }
-            .missions-grid { grid-template-columns: 1fr; gap: 30px; }
+            .missions-section { padding: 50px 20px; }
+            .missions-grid { grid-template-columns: 1fr; gap: 25px; }
             .section-title { font-size: 2rem; }
         }
 
