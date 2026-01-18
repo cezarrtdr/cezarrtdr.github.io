@@ -23,19 +23,19 @@
         html { scroll-behavior: smooth; }
 
         /* =========================================
-       ESCALADO "ZOOM 80%" (PC Y MÓVIL)
+       ESCALADO "ZOOM 80%" - CORREGIDO
        ========================================= */
     
-    /* 1. Definimos la escala base más pequeña (La Magia) */
+    /* 1. Escala base (El efecto "Zoom out" que te gustó) */
     html {
-        font-size: 13px; /* Reduce todo el sitio proporcionalmente */
+        font-size: 13px; 
         scroll-behavior: smooth;
     }
 
-    /* 2. Ajustamos el cuerpo */
+    /* 2. Cuerpo base */
     body {
-        font-family: 'Rajdhani', sans-serif; /* Tu fuente original */
-        font-size: 1.1rem; /* Equivale a unos 14px muy nítidos */
+        font-family: 'Rajdhani', sans-serif;
+        font-size: 1.1rem;
         line-height: 1.6;
         background-color: #000;
         color: white;
@@ -44,17 +44,30 @@
         padding: 0;
     }
 
-    /* 3. Contenedores más elegantes (evita que se estiren demasiado) */
-    .main-wrapper, 
-    .paper-container, 
-    .hero-content {
+    /* 3. REGLA DIFERENCIADA (AQUÍ ESTÁ EL ARREGLO) */
+
+    /* A) Para los PROYECTOS (Texto técnico centrado y legible) */
+    .paper-container {
         max-width: 850px !important; 
         margin: 0 auto; 
     }
 
+    /* B) Para el INDEX/PORTADA (Ancho completo para recuperar el diseño original) */
+    .main-wrapper {
+        max-width: 100% !important; /* Ocupa toda la pantalla */
+        margin: 0; 
+        /* El padding original del navbar se encargará de los márgenes */
+    }
+
+    /* Ajuste para que el título del Index no sea infinito, pero sí ancho */
+    .hero-content {
+        max-width: 1200px !important; /* Mucho más espacio que antes */
+        margin-top: 50px;
+    }
+
     /* 4. Ajuste Móvil */
     @media (max-width: 768px) {
-        html { font-size: 14px; } /* Un poco más grande en celular para leer bien */
+        html { font-size: 14px; }
         .paper-container, .main-wrapper { max-width: 100% !important; padding: 0 20px; }
     }
 
