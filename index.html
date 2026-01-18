@@ -27,7 +27,8 @@
             background-color: #000;
             color: white;
             overflow-x: hidden;
-            font-size: 18px;
+            /* CAMBIO CLAVE: Bajamos de 18px a 15px. Esto reduce todo aprox un 20-25% */
+            font-size: 15px; 
         }
 
         /* --- VIDEO DE FONDO --- */
@@ -43,53 +44,71 @@
             z-index: 1;
         }
 
-        /* --- NAVBAR --- */
+        /* --- NAVBAR (Barra Superior Mejorada) --- */
         nav {
             position: fixed; top: 0; width: 100%;
             display: flex; justify-content: space-between; align-items: center;
-            padding: 20px 80px; z-index: 100;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent);
-            backdrop-filter: blur(4px);
+            /* Laptop: Usamos % en vez de px fijos para que se adapte */
+            padding: 15px 5%; 
+            z-index: 100;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.95), rgba(0,0,0,0.6));
+            backdrop-filter: blur(5px);
             transition: 0.3s;
+            height: 70px; /* Altura controlada */
         }
-        .logo { font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 1.5rem; letter-spacing: 2px; }
-        .nav-links { display: flex; gap: 40px; }
-        .nav-links a { color: white; text-decoration: none; text-transform: uppercase; font-size: 1rem; transition: 0.3s; font-weight: 700; }
+        .logo { 
+            font-family: 'Orbitron', sans-serif; 
+            font-weight: 900; 
+            font-size: 1.3rem; /* Un poco más discreto */
+            letter-spacing: 1px; 
+            white-space: nowrap;
+        }
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a { 
+            color: white; text-decoration: none; text-transform: uppercase; 
+            font-size: 0.9rem; transition: 0.3s; font-weight: 700; 
+        }
         .nav-links a:hover { color: var(--accent-blue); text-shadow: 0 0 10px var(--accent-blue); }
-        .nav-user { border: 1px solid white; padding: 8px 20px; text-transform: uppercase; font-size: 0.8rem; font-weight: bold; letter-spacing: 1px; }
+        .nav-user { 
+            border: 1px solid white; padding: 5px 15px; 
+            text-transform: uppercase; font-size: 0.75rem; 
+            font-weight: bold; letter-spacing: 1px; 
+        }
 
         /* --- HERO SECTION --- */
         .main-wrapper {
             position: relative; min-height: 100vh; display: flex; flex-direction: column;
-            justify-content: center; z-index: 2; padding: 0 80px;
+            justify-content: center; z-index: 2; 
+            padding: 0 5%; /* Padding dinámico */
         }
 
-        .hero-content { margin-top: 50px; max-width: 900px; }
+        .hero-content { margin-top: 40px; max-width: 800px; }
         
         h1 {
             font-family: 'Orbitron', sans-serif; 
-            font-size: 4rem; /* AJUSTADO: Antes 5.5rem, ahora más pequeño */
+            /* Reducido para laptops (antes era gigante) */
+            font-size: 3.5rem; 
             line-height: 1;
-            margin-bottom: 30px; text-transform: uppercase;
+            margin-bottom: 20px; text-transform: uppercase;
             text-shadow: 0 0 25px rgba(59, 130, 246, 0.6);
         }
 
         .slogan-container {
-            margin-bottom: 50px; border-left: 6px solid var(--accent-blue); padding-left: 30px;
+            margin-bottom: 40px; border-left: 4px solid var(--accent-blue); padding-left: 20px;
         }
         .slogan-text {
-            font-family: 'Orbitron', sans-serif; font-size: 2rem; font-weight: 700; font-style: italic;
-            color: #fff; line-height: 1.4; display: block; margin-bottom: 10px;
+            font-family: 'Orbitron', sans-serif; font-size: 1.6rem; font-weight: 700; font-style: italic;
+            color: #fff; line-height: 1.3; display: block; margin-bottom: 8px;
             text-shadow: 2px 2px 4px #000;
         }
         .slogan-sub {
-            font-size: 1.2rem; color: var(--accent-blue); letter-spacing: 3px;
+            font-size: 1rem; color: var(--accent-blue); letter-spacing: 2px;
             text-transform: uppercase; font-weight: bold;
         }
 
         .btn-primary {
-            background-color: var(--accent-blue); color: white; padding: 18px 50px;
-            border: none; font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 1.1rem;
+            background-color: var(--accent-blue); color: white; padding: 15px 40px;
+            border: none; font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 1rem;
             text-transform: uppercase; letter-spacing: 2px; cursor: pointer;
             transition: 0.3s; text-decoration: none; display: inline-block;
             clip-path: polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%);
@@ -98,198 +117,158 @@
         .btn-primary:hover { background-color: #60a5fa; transform: scale(1.05); }
 
         .cards-container {
-            display: flex; gap: 30px; margin-top: 60px; flex-wrap: wrap;
+            display: flex; gap: 20px; margin-top: 50px; flex-wrap: wrap;
         }
         .info-card {
             background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1); width: 280px; padding: 25px; text-align: center; transition: 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.1); width: 240px; padding: 20px; text-align: center; transition: 0.3s;
         }
-        .info-card:hover { border-color: var(--accent-blue); background: rgba(0, 0, 0, 0.85); transform: translateY(-8px); }
-        .card-icon { font-size: 2.5rem; color: #60a5fa; margin-bottom: 15px; }
-        .card-title { font-family: 'Orbitron'; font-size: 1.2rem; margin-bottom: 5px; text-transform: uppercase; font-weight: bold; }
-        .card-data { font-family: 'Rajdhani'; font-size: 1.5rem; font-weight: 700; color: white; }
-        .card-desc { font-size: 0.85rem; color: var(--text-gray); text-transform: uppercase; letter-spacing: 1px; }
+        .info-card:hover { border-color: var(--accent-blue); background: rgba(0, 0, 0, 0.85); transform: translateY(-5px); }
+        .card-icon { font-size: 2rem; color: #60a5fa; margin-bottom: 10px; }
+        .card-title { font-family: 'Orbitron'; font-size: 1rem; margin-bottom: 5px; text-transform: uppercase; font-weight: bold; }
+        .card-data { font-family: 'Rajdhani'; font-size: 1.3rem; font-weight: 700; color: white; }
+        .card-desc { font-size: 0.8rem; color: var(--text-gray); text-transform: uppercase; letter-spacing: 1px; }
 
         /* --- PERFIL --- */
         .profile-section {
-            min-height: 85vh; display: flex; align-items: center; justify-content: center;
-            position: relative; z-index: 10; padding: 80px;
+            min-height: auto; /* Quitamos altura forzada */
+            padding: 80px 5%; /* Padding lateral dinámico */
             background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.85) 40%, transparent 100%);
+            position: relative; z-index: 10;
         }
-        .profile-wrapper { max-width: 1200px; width: 100%; display: flex; gap: 60px; align-items: flex-start; }
-        .profile-text { flex: 1; }
-
-        /* Estilos para el encabezado con foto y nombre */
-        .profile-header { display: flex; align-items: center; gap: 30px; margin-bottom: 30px; }
+        .profile-wrapper { max-width: 1000px; width: 100%; margin: 0 auto; }
+        
+        .profile-header { 
+            display: flex; align-items: center; gap: 25px; margin-bottom: 25px; 
+        }
         
         .profile-photo {
-            width: 100px; height: 100px; 
-            border-radius: 50%; 
-            object-fit: cover;
+            width: 90px; height: 90px; /* Un poco más pequeña */
+            border-radius: 50%; object-fit: cover;
             border: 2px solid var(--accent-blue);
-            transition: 0.4s ease;
-            cursor: pointer;
-            background-color: #1e293b; /* Fondo si no hay foto */
+            transition: 0.4s ease; cursor: pointer;
+            background-color: #1e293b;
         }
-        /* Efecto al tocar la foto */
-        .profile-photo:hover { 
-            transform: scale(1.3); 
-            box-shadow: 0 0 25px var(--accent-blue);
-            z-index: 10;
-        }
+        .profile-photo:hover { transform: scale(1.2); box-shadow: 0 0 20px var(--accent-blue); z-index: 10; }
 
-        .big-name { font-family: 'Orbitron', sans-serif; font-size: 4rem; color: white; line-height: 1; }
+        .header-info { display: flex; flex-direction: column; gap: 4px; }
+
+        .big-name { 
+            font-family: 'Orbitron', sans-serif; 
+            font-size: 2.5rem; /* Reducido */
+            color: white; line-height: 1; margin-bottom: 0; 
+        }
         .highlight-blue { color: var(--accent-blue); }
-        .big-bio { font-size: 1.5rem; color: #e2e8f0; line-height: 1.7; text-align: justify; font-weight: 500; text-shadow: 1px 1px 2px black; margin-bottom: 30px; }
 
-        .social-buttons { display: flex; gap: 20px; margin-top: 30px; align-items: center; }
+        .header-email {
+            font-family: 'Rajdhani', sans-serif; font-size: 1.1rem;
+            color: var(--text-gray); text-decoration: none;
+            display: inline-flex; align-items: center; gap: 8px;
+            transition: 0.3s; font-weight: 500;
+        }
+        .header-email i { color: var(--accent-blue); }
+        .header-email:hover { color: white; text-shadow: 0 0 10px var(--accent-blue); }
+
+        .big-bio { 
+            font-size: 1.2rem; /* Texto más cómodo para leer */
+            color: #e2e8f0; line-height: 1.6; text-align: justify; 
+            font-weight: 500; text-shadow: 1px 1px 2px black; margin-bottom: 25px; 
+        }
+
+        .social-buttons { display: flex; gap: 15px; margin-top: 25px; align-items: center; }
         .social-btn {
             display: inline-flex; align-items: center; justify-content: center;
-            width: 50px; height: 50px; border-radius: 50%;
+            width: 45px; height: 45px; border-radius: 50%;
             border: 2px solid var(--accent-blue); color: var(--accent-blue);
-            font-size: 1.4rem; transition: 0.3s; text-decoration: none;
+            font-size: 1.2rem; transition: 0.3s; text-decoration: none;
         }
-        .social-btn:hover { background: var(--accent-blue); color: white; transform: translateY(-5px); box-shadow: 0 0 15px var(--accent-blue); }
-        
-        .contact-phone {
-            font-family: 'Orbitron', sans-serif; font-size: 1.1rem; color: #cbd5e1; margin-left: 20px;
-            display: flex; align-items: center; gap: 10px;
-        }
+        .social-btn:hover { background: var(--accent-blue); color: white; transform: translateY(-3px); box-shadow: 0 0 15px var(--accent-blue); }
 
-        /* --- MISIONES (GRID 3x3) --- */
+        /* --- MISIONES --- */
         .missions-section {
-            min-height: 100vh; padding: 120px 80px; position: relative; z-index: 10;
+            min-height: 100vh; 
+            padding: 80px 5%; /* Padding lateral dinámico */
+            position: relative; z-index: 10;
             background: rgba(2, 6, 12, 0.92); border-top: 1px solid rgba(59, 130, 246, 0.2);
         }
-        .section-header { margin-bottom: 80px; text-align: center; }
+        .section-header { margin-bottom: 50px; text-align: center; }
         
         .section-title { 
-            font-family: 'Orbitron'; 
-            font-size: 2.8rem; /* AJUSTADO: Antes 3.5rem, ahora más discreto */
-            color: var(--accent-blue); 
-            letter-spacing: 4px; 
+            font-family: 'Orbitron'; font-size: 2.2rem; /* Reducido */
+            color: var(--accent-blue); letter-spacing: 3px; 
             text-shadow: 0 0 15px var(--accent-blue); 
         }
         
         .missions-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr); 
-            gap: 40px;
+            gap: 25px; /* Espacio más compacto */
+            max-width: 1200px; margin: 0 auto;
         }
 
         .mission-card {
             background: rgba(255, 255, 255, 0.03); 
             border: 1px solid rgba(255, 255, 255, 0.1);
             transition: 0.4s; position: relative;
-            display: flex; flex-direction: column;
-            overflow: hidden;
-            height: 100%;
+            display: flex; flex-direction: column; overflow: hidden; height: 100%;
         }
-        .mission-card:hover {
-            border-color: var(--accent-blue); 
-            background: rgba(255, 255, 255, 0.07); 
-            transform: translateY(-10px);
-        }
+        .mission-card:hover { border-color: var(--accent-blue); background: rgba(255, 255, 255, 0.07); transform: translateY(-5px); }
 
-        /* Imagen de Portada en Misiones */
         .mission-img {
-            width: 100%; height: 220px; object-fit: cover;
-            background-color: #1e293b;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            transition: 0.4s;
+            width: 100%; height: 180px; /* Menos altura para ver más contenido */
+            object-fit: cover; background-color: #1e293b;
+            border-bottom: 1px solid rgba(255,255,255,0.1); transition: 0.4s;
         }
         .mission-card:hover .mission-img { filter: brightness(1.2); }
 
-        .mission-content { padding: 30px; display: flex; flex-direction: column; flex-grow: 1; }
-
-        .mission-tag { color: var(--accent-blue); font-weight: 800; letter-spacing: 2px; font-size: 0.85rem; font-family: 'Orbitron'; margin-bottom: 10px; }
-        .mission-title { font-family: 'Orbitron'; font-size: 1.5rem; margin-bottom: 15px; line-height: 1.2; font-weight: bold; }
-        .mission-desc { font-size: 1rem; color: #cbd5e1; line-height: 1.6; margin-bottom: 25px; flex-grow: 1; }
+        .mission-content { padding: 25px; display: flex; flex-direction: column; flex-grow: 1; }
+        .mission-tag { color: var(--accent-blue); font-weight: 800; letter-spacing: 1px; font-size: 0.75rem; font-family: 'Orbitron'; margin-bottom: 8px; }
+        .mission-title { font-family: 'Orbitron'; font-size: 1.2rem; margin-bottom: 10px; line-height: 1.2; font-weight: bold; }
+        .mission-desc { font-size: 0.95rem; color: #cbd5e1; line-height: 1.5; margin-bottom: 20px; flex-grow: 1; }
         
         .mission-btn { 
             color: white; text-decoration: none; border-bottom: 2px solid var(--accent-blue); 
-            padding-bottom: 5px; font-weight: 800; font-size: 0.9rem; align-self: flex-start;
+            padding-bottom: 3px; font-weight: 800; font-size: 0.85rem; align-self: flex-start;
             transition: 0.3s; margin-top: auto;
         }
-        .mission-btn:hover { color: var(--accent-blue); padding-right: 10px; }
+        .mission-btn:hover { color: var(--accent-blue); padding-right: 8px; }
 
         /* Scroll Reveal */
-        .reveal { opacity: 0; transform: translateY(60px); transition: all 1.2s ease; }
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 1s ease; }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
-        /* RESPONSIVE: Adaptación a celular y tablet */
+        /* --- RESPONSIVE OPTIMIZADO PARA MÓVIL (CELULARES) --- */
         @media (max-width: 1100px) {
             .missions-grid { grid-template-columns: repeat(2, 1fr); }
+            h1 { font-size: 3rem; }
         }
+
         @media (max-width: 768px) {
-            .missions-grid { grid-template-columns: 1fr; }
-            h1 { font-size: 3rem; } /* Más pequeño aún en celular */
-            .big-name { font-size: 2.5rem; }
-            .section-title { font-size: 2.2rem; }
+            /* Ajustes drásticos para celular */
+            nav { padding: 10px 20px; height: 60px; justify-content: space-between; }
+            .nav-links { display: none; /* Ocultamos links en móvil para limpieza */ }
+            .logo { font-size: 1.1rem; } /* Logo más pequeño */
+            .nav-user { display: none; /* Ocultamos "SYSTEM ONLINE" en móvil para ahorrar espacio */ }
+
+            .main-wrapper { padding: 0 20px; text-align: center; }
+            .hero-content { margin-top: 20px; width: 100%; display: flex; flex-direction: column; align-items: center; }
+            .slogan-container { border-left: none; border-bottom: 3px solid var(--accent-blue); padding-left: 0; padding-bottom: 20px; margin-bottom: 30px; }
             
-            .slogan-text { font-size: 1.5rem; }
-            .hero-content, .profile-section, .missions-section { padding: 40px 20px; }
-            .nav-links { display: none; }
-            .cards-container { flex-wrap: wrap; padding: 0 20px; }
-            .info-card { width: 100%; }
-            .profile-wrapper { flex-direction: column; }
-            .profile-header { flex-direction: column; text-align: center; }
-            .social-buttons { justify-content: center; flex-wrap: wrap; }
-            .contact-phone { margin-left: 0; margin-top: 10px; width: 100%; justify-content: center; }
-        }
+            h1 { font-size: 2.5rem; margin-bottom: 15px; } /* Título mucho más manejable */
+            .slogan-text { font-size: 1.2rem; }
+            
+            .cards-container { justify-content: center; gap: 15px; margin-top: 30px; }
+            .info-card { width: 100%; max-width: 300px; padding: 15px; } /* Tarjetas full width pero con límite */
 
-        /* --- ACTUALIZACIÓN CSS PERFIL --- */
-        
-        /* 1. Ajustamos el contenedor del encabezado */
-        .profile-header { 
-            display: flex; 
-            align-items: center; 
-            gap: 30px; 
-            margin-bottom: 30px; 
-        }
-        
-        /* 2. Nuevo contenedor para apilar nombre y correo verticalmente */
-        .header-info {
-            display: flex;
-            flex-direction: column;
-            gap: 5px; /* Espacio entre nombre y correo */
-        }
-
-        /* 3. Quitamos el margen inferior gigante que tenía el nombre antes */
-        .big-name { 
-            font-family: 'Orbitron', sans-serif; 
-            font-size: 3rem; /* AJUSTADO */
-            color: white; 
-            line-height: 1; 
-            margin-bottom: 0; 
-        }
-
-        /* 4. Estilo para el nuevo correo en el encabezado */
-        .header-email {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.3rem;
-            color: var(--text-gray);
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            transition: 0.3s;
-            font-weight: 500;
-        }
-
-        .header-email i {
-            color: var(--accent-blue);
-        }
-
-        .header-email:hover {
-            color: white;
-            text-shadow: 0 0 10px var(--accent-blue);
-        }
-
-        /* Ajuste responsive para celulares */
-        @media (max-width: 768px) {
-            .profile-header { flex-direction: column; text-align: center; }
+            .profile-section { padding: 40px 20px; }
+            .profile-header { flex-direction: column; text-align: center; gap: 15px; }
             .header-info { align-items: center; }
+            .big-name { font-size: 2rem; }
+            .big-bio { font-size: 1rem; text-align: left; }
+
+            .missions-section { padding: 60px 20px; }
+            .missions-grid { grid-template-columns: 1fr; gap: 30px; } /* 1 columna en móvil */
+            .section-title { font-size: 1.8rem; }
         }
 
     </style>
@@ -449,7 +428,7 @@
             for(var i = 0; i < reveals.length; i++){
                 var windowheight = window.innerHeight;
                 var revealtop = reveals[i].getBoundingClientRect().top;
-                var revealpoint = 150;
+                var revealpoint = 100; // Reducido para que la animación salte antes en pantallas pequeñas
                 if(revealtop < windowheight - revealpoint){
                     reveals[i].classList.add('active');
                 }
