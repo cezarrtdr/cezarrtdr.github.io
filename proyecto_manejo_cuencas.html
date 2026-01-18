@@ -184,6 +184,102 @@
             transition: 0.2s; margin-right: 15px; margin-bottom: 10px;
         }
         .btn-download:hover { background-color: #30363d; border-color: #8b949e; }
+
+
+        /* --- ESTILOS TARJETA DE DESCARGA (RESPONSIVE) --- */
+        .download-card-pro {
+            background-color: #161b22; /* Fondo oscuro */
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 50px 30px;
+            text-align: center;
+            margin: 40px 0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .download-card-pro:hover {
+            transform: translateY(-5px);
+            border-color: #3776ab; /* Azul Python al pasar el mouse */
+            box-shadow: 0 10px 30px rgba(55, 118, 171, 0.15);
+        }
+
+        /* Icono de Python */
+        .python-icon {
+            font-size: 6rem; 
+            color: #3776ab; 
+            margin-bottom: 25px;
+            filter: drop-shadow(0 0 15px rgba(55, 118, 171, 0.3));
+            transition: 0.3s;
+        }
+
+        /* Badge del nombre del archivo */
+        .filename-badge {
+            display: inline-block;
+            background: rgba(56, 139, 253, 0.1);
+            color: #58a6ff;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            border: 1px solid rgba(56, 139, 253, 0.3);
+            
+            /* TRUCO PARA MÓVIL: Si el nombre es muy largo, que baje de línea */
+            word-break: break-word; 
+            max-width: 100%;
+        }
+
+        /* Botón de descarga */
+        .hero-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background-color: #238636; /* Verde GitHub */
+            color: white;
+            padding: 15px 35px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: 0.3s;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .hero-btn:hover {
+            background-color: #2ea043;
+            transform: scale(1.02);
+            box-shadow: 0 0 15px rgba(46, 160, 67, 0.4);
+        }
+
+        /* --- AJUSTES ESPECÍFICOS PARA MÓVIL --- */
+        @media (max-width: 768px) {
+            .download-card-pro {
+                padding: 30px 15px; /* Menos relleno */
+            }
+            
+            .python-icon {
+                font-size: 4rem; /* Icono más pequeño (antes era 6rem) */
+                margin-bottom: 15px;
+            }
+
+            .filename-badge {
+                font-size: 0.85rem; /* Texto más pequeño */
+                padding: 6px 12px;
+            }
+
+            .hero-btn {
+                width: 100%; /* Botón ocupa todo el ancho en celular */
+                padding: 15px 0;
+            }
+        }
+
+
+
+
     </style>
 </head>
 
@@ -339,26 +435,27 @@
 
 
     <h2>III. Script de Automatización (Python)</h2>
-<p>
-    Para garantizar la transparencia y reproducibilidad de este estudio, el código fuente completo está disponible para descarga directa. El archivo <strong>Jupyter Notebook (.ipynb)</strong> contiene el flujo de trabajo documentado, listo para ser ejecutado en ArcGIS Pro.
-</p>
+        <p>
+            Para garantizar la transparencia y reproducibilidad de este estudio, el código fuente completo está disponible para descarga directa. El archivo <strong>Jupyter Notebook (.ipynb)</strong> contiene el flujo de trabajo documentado, listo para ser ejecutado en ArcGIS Pro.
+        </p>
 
-<div class="download-card-pro">
-    
-    <i class="fab fa-python" style="font-size: 6rem; color: #3776ab; filter: drop-shadow(0 0 15px rgba(55, 118, 171, 0.4));"></i>
-    
-    <div>
-        <span class="filename-badge">Automatización_Cuencas_v1.0.ipynb</span>
-    </div>
+        <div class="download-card-pro">
+            
+            <i class="fab fa-python python-icon"></i>
+            
+            <div>
+                <span class="filename-badge">Automatización_Cuencas_v1.0.ipynb</span>
+            </div>
 
-    <p style="font-size: 1rem; color: var(--text-muted); margin-bottom: 40px;">
-        <i class="fas fa-check-circle" style="color: var(--success); margin-right: 8px;"></i> 
-        Compatible con <strong>ArcGIS Pro 3.x</strong> y <strong>Python 3.9+</strong>
-    </p>
+            <p style="font-size: 0.95rem; color: #8b949e; margin-bottom: 30px; margin-top: 10px;">
+                <i class="fas fa-check-circle" style="color: #3fb950; margin-right: 8px;"></i> 
+                Compatible con <strong>ArcGIS Pro 3.x</strong> y <strong>Python 3.9+</strong>
+            </p>
 
-    <a href="Manejo_cuencas/Manejo_de_cuencas.ipynb" download class="hero-btn">
-        <i class="fas fa-cloud-download-alt"></i> DESCARGAR NOTEBOOK
-    </a>
+            <a href="Manejo_cuencas/Manejo_de_cuencas.ipynb" download class="hero-btn">
+                <i class="fas fa-cloud-download-alt"></i> DESCARGAR NOTEBOOK
+            </a>
+        </div>
 
 </div>
 <div class="resources-section">
