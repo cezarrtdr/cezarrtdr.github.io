@@ -22,14 +22,41 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        body {
-            background-color: var(--bg-github);
-            color: var(--text-primary);
-            font-family: 'Merriweather', serif; 
-            line-height: 1.9;
-            font-size: 18px;
-            padding: 40px 20px;
-        }
+        /* =========================================
+       ESCALADO "ZOOM 80%" (PC Y MÓVIL)
+       ========================================= */
+    
+    /* 1. Definimos la escala base más pequeña (La Magia) */
+    html {
+        font-size: 13px; /* Reduce todo el sitio proporcionalmente */
+        scroll-behavior: smooth;
+    }
+
+    /* 2. Ajustamos el cuerpo */
+    body {
+        font-family: 'Rajdhani', sans-serif; /* Tu fuente original */
+        font-size: 1.1rem; /* Equivale a unos 14px muy nítidos */
+        line-height: 1.6;
+        background-color: #000;
+        color: white;
+        overflow-x: hidden;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* 3. Contenedores más elegantes (evita que se estiren demasiado) */
+    .main-wrapper, 
+    .paper-container, 
+    .hero-content {
+        max-width: 850px !important; 
+        margin: 0 auto; 
+    }
+
+    /* 4. Ajuste Móvil */
+    @media (max-width: 768px) {
+        html { font-size: 14px; } /* Un poco más grande en celular para leer bien */
+        .paper-container, .main-wrapper { max-width: 100% !important; padding: 0 20px; }
+    }
 
         /* Enlace de volver */
         .back-link {
